@@ -1,0 +1,170 @@
+[
+	{
+		"personType": "Child",
+		"intelligence": 70,
+		"dexterity": 70,
+		"strength": 70,
+		"isMale": false
+	},
+	{
+		"personType": "Child",
+		"intelligence": 70,
+		"dexterity": 70,
+		"strength": 70,
+		"isMale": true
+	},
+	{
+		"personType": "Child",
+		"intelligence": 70,
+		"dexterity": 70,
+		"strength": 70,
+		"isMale": false
+	},
+	{
+		"personType": "Child",
+		"intelligence": 70,
+		"dexterity": 70,
+		"strength": 70,
+		"isMale": true
+	},
+	{
+		"personType": "Child",
+		"intelligence": 70,
+		"dexterity": 70,
+		"strength": 70,
+		"isMale": false
+	},
+	{
+		"personType": "Child",
+		"intelligence": 70,
+		"dexterity": 70,
+		"strength": 70,
+		"isMale": true
+	},
+	{
+		"personType": "Child",
+		"intelligence": 70,
+		"dexterity": 70,
+		"strength": 70,
+		"isMale": false
+	},
+	{
+		"personType": "Child",
+		"intelligence": 70,
+		"dexterity": 70,
+		"strength": 70,
+		"isMale": true
+	},
+	{
+		"personType": "Adult",
+		"intelligence": 70,
+		"dexterity": 70,
+		"strength": 70,
+		"isMale": true
+	},
+	{
+		"personType": "Adult",
+		"intelligence": 70,
+		"dexterity": 70,
+		"strength": 70,
+		"isMale": false
+	},
+	{
+		"personType": "Adult",
+		"intelligence": 70,
+		"dexterity": 70,
+		"strength": 70,
+		"isMale": true
+	},
+	{
+		"personType": "Adult",
+		"intelligence": 70,
+		"dexterity": 70,
+		"strength": 70,
+		"isMale": false
+	},
+	{
+		"personType": "Child",
+		"intelligence": 70,
+		"dexterity": 70,
+		"strength": 70,
+		"isMale": false
+	},
+	{
+		"personType": "Elder",
+		"intelligence": 70,
+		"dexterity": 70,
+		"strength": 70,
+		"isMale": false
+	},
+	{
+		"personType": "Adult",
+		"intelligence": 70,
+		"dexterity": 70,
+		"strength": 70,
+		"isMale": true
+	},
+	{
+		"personType": "Child",
+		"intelligence": 70,
+		"dexterity": 70,
+		"strength": 70,
+		"isMale": true
+	},
+	{
+		"personType": "Elder",
+		"intelligence": 70,
+		"dexterity": 70,
+		"strength": 70,
+		"isMale": true
+	},
+	{
+		"personType": "Adult",
+		"intelligence": 20,
+		"dexterity": 20,
+		"strength": 20,
+		"isMale": false
+	},
+	{
+		"personType": "Child",
+		"intelligence": 20,
+		"dexterity": 20,
+		"strength": 20,
+		"isMale": false
+	},
+	{
+		"personType": "Elder",
+		"intelligence": 20,
+		"dexterity": 20,
+		"strength": 20,
+		"isMale": false
+	},
+	{
+		"personType": "Adult",
+		"intelligence": 50,
+		"dexterity": 50,
+		"strength": 50,
+		"isMale": true
+	},
+	{
+		"personType": "Adult",
+		"intelligence": 50,
+		"dexterity": 50,
+		"strength": 50,
+		"isMale": false
+	},
+	{
+		"personType": "Adult",
+		"intelligence": 70,
+		"dexterity": 70,
+		"strength": 70,
+		"isMale": true
+	},
+	{
+		"personType": "Adult",
+		"intelligence": 90,
+		"dexterity": 90,
+		"strength": 90,
+		"isMale": false
+	}
+]
