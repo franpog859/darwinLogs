@@ -1,6 +1,6 @@
 # DarwinLogs
 
-DarwinLogs is a simple population evolution simulator. A given start population goes through a number of generations. After all changes it returns statistics of all generations. This is a second version of [Project Darwin](https://github.com/franpog859/darwin).
+**WIP** - DarwinLogs is a simple population evolution simulator. A given start population goes through a number of generations. After all changes it returns statistics of all generations. This is a second version of [Project Darwin](https://github.com/franpog859/darwin).
 
 User provides environment and population in JSON files. After all program returns information also in JSON file. It is important for further web layer implementation.
 
