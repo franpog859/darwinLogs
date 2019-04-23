@@ -24,7 +24,10 @@ int main(int argc, char *argv[]) {
 		World world(&environment, &params, &populationSvc);
 		world.start();
 
-		IoService::saveLogs(LogService::getLogs(), &params);
+		IoService::saveEnvironment(&environment, &params);
+		//IoService::savePopulation(&population, &params);
+		IoService::saveLogs(LogService::getLogs(), &params); //TODO: This should save logs to CSV file.
+		//IoService::generateGraphs(LogService::getLogs(), &params);
 	}
 	return 0;
 }

@@ -2,6 +2,7 @@
 #define ENVIRONMENT_HPP
 
 #include "Statistics.hpp"
+#include "../lib/json.hpp"
 
 const int MAX_STATS_CHANGE = 6;
 
@@ -16,6 +17,8 @@ public:
 	Statistics* getMinimalSurvivalStats();
 	Statistics* getMinimalReproductionStats();
 
+	nlohmann::json toJson();
+		
 private:
 	Statistics minimalSurvivalStats;
 	Statistics minimalReproductionStats;

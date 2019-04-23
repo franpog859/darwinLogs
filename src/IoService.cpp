@@ -32,9 +32,11 @@ Parameters IoService::parseArgs(int argc, char *argv[]) {
 		params.isHelp = true;
 		return params;
 	}
-	cmdl({ "-oe", "--outputEnvironment" }) >> params.outputLogsFile; // TODO: Actually use them.
-	cmdl({ "-op", "--outputPopulation" }) >> params.outputLogsFile;
-	cmdl({ "-l", "--logs" }, "logs.json") >> params.outputLogsFile;
+
+	cmdl({ "-op", "--outputPath" }) >> params.outputFilesPath;
+	//cmdl({ "-oe", "--outputEnvironment" }) >> params.outputLogsFile;
+	//cmdl({ "-op", "--outputPopulation" }) >> params.outputLogsFile;
+	cmdl({ "-l", "--logs" }, "logs.json") >> params.outputLogsFile; // TODO: Delete it after refactor.
 
 	params.isHelp = false;
 	return params;
@@ -152,8 +154,9 @@ void IoService::printHelp() {
 	std::cout << "	-e	--epochs        - to set number of epochs (required)" << std::endl;
 	std::cout << "	-ie	--environment   - to set the path to input JSON environment file (required)" << std::endl;
 	std::cout << "	-ip	--population    - to set the path to input JSON population file (required)" << std::endl;
-	std::cout << "	-l	--logs          - to set the custom path for output JSON logs file" << std::endl;
-	std::cout << "Example usage: ./darwinLogs -e=12 -ie=data/env.json -ip=data/pop.json -l=data/logs.json\n";
+	std::cout << "	-op	--outputPath    - to set the path for the output environment, population and logs files" << std::endl;
+	std::cout << "	-l	--logs          - to set the custom path for output JSON logs file" << std::endl; // TODO: Delete it after refactor.
+	std::cout << "Example usage: ./darwinLogs -e=12 -ie=data/env.json -ip=data/pop.json -op=data/output/\n";
 }
 
 void IoService::saveLogs(std::vector<Info> info, Parameters * parameters) {
@@ -171,6 +174,22 @@ void IoService::saveLogs(std::vector<Info> info, Parameters * parameters) {
 	} 
 	catch (std::exception &e) {
 		std::cerr << "Failed to save logs!" << std::endl;
+		std::cerr << "Error occured: " << e.what() << std::endl;
+	}
+}
+
+void IoService::saveEnvironment(Environment *environment, Parameters *parameters) {
+	try {
+		std::string outputFileName = parameters->outputFilesPath + "outputEnvironment.json";
+		std::cout << "Saving environment to " << outputFileName << std::endl;
+		nlohmann::json jsonEnvironment = environment->toJson();
+		std::ofstream outputFile(outputFileName);
+		outputFile << std::setw(4) << jsonEnvironment << std::endl;
+		outputFile.close();
+		std::cout << "Environment saved successfully!" << std::endl;
+	}
+	catch (std::exception &e) {
+		std::cerr << "Failed to save environment!" << std::endl;
 		std::cerr << "Error occured: " << e.what() << std::endl;
 	}
 }

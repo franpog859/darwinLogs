@@ -53,3 +53,15 @@ Statistics* Environment::getMinimalSurvivalStats() {
 Statistics* Environment::getMinimalReproductionStats() {
 	return &minimalSurvivalStats;
 }
+
+nlohmann::json Environment::toJson() {
+	nlohmann::json jsonEnvironment{
+		{"srv_dexterity", minimalSurvivalStats.dexterity},
+		{"srv_intelligence", minimalReproductionStats.intelligence},
+		{"srv_strength", minimalSurvivalStats.strength},
+		{"rep_dexterity", minimalReproductionStats.dexterity},
+		{"rep_intelligence", minimalReproductionStats.intelligence},
+		{"rep_strength", minimalReproductionStats.strength}
+	};
+	return jsonEnvironment;
+}
