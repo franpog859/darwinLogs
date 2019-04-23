@@ -28,3 +28,18 @@ void PopulationRepository::initialize() { // This is just a mock data for now.
 		elders.push_back(elder);
 	}
 }
+
+nlohmann::json PopulationRepository::toJson() {
+	std::vector<nlohmann::json> jsonVector;
+	for (int i = 0; i < children.size(); i++) {
+		jsonVector.push_back(children[i].toJson());
+	}
+	for (int i = 0; i < adults.size(); i++) {
+		jsonVector.push_back(adults[i].toJson());
+	}
+	for (int i = 0; i < elders.size(); i++) {
+		jsonVector.push_back(elders[i].toJson());
+	}
+	nlohmann::json jsonPopulation(jsonVector);
+	return jsonPopulation;
+}

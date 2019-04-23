@@ -13,3 +13,14 @@ void Elder::growOlder() {
 		stats.strength * 2 / 3
 	};
 }
+
+nlohmann::json Elder::toJson() {
+	nlohmann::json jsonInfo{
+		{"personType", "Elder"},
+		{"intelligence", stats.intelligence},
+		{"dexterity", stats.dexterity},
+		{"strength", stats.intelligence},
+		{"isMale", isMale}
+	};
+	return jsonInfo;
+}

@@ -3,6 +3,7 @@
 
 #include "Statistics.hpp"
 #include "Environment.hpp"
+#include "../lib/json.hpp"
 
 class Person {
 public:
@@ -14,6 +15,8 @@ public:
 	bool canSurvive(Environment*);
 	bool getIsMale();
 	Statistics getStats();
+
+	virtual nlohmann::json toJson() = 0;
 
 protected:	
 	Statistics stats;

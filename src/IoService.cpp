@@ -193,3 +193,20 @@ void IoService::saveEnvironment(Environment *environment, Parameters *parameters
 		std::cerr << "Error occured: " << e.what() << std::endl;
 	}
 }
+
+void IoService::savePopulation(PopulationRepository *populationRepository, Parameters *parameters) {
+	try {
+		std::string outputFileName = parameters->outputFilesPath + "outputPopulation.json";
+		std::cout << "Saving population to " << outputFileName << std::endl;
+		nlohmann::json jsonPopulation = populationRepository->toJson();
+		std::ofstream outputFile(outputFileName);
+		outputFile << std::setw(4) << jsonPopulation << std::endl;
+		outputFile.close();
+		std::cout << "Population saved successfully!" << std::endl;
+	}
+	catch (std::exception &e) {
+		std::cerr << "Failed to save population!" << std::endl;
+		std::cerr << "Error occured: " << e.what() << std::endl;
+	}
+}
+

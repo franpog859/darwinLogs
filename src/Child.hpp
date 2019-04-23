@@ -11,6 +11,7 @@ public:
 	~Child();
 
 	Adult growOlder();
+	nlohmann::json toJson();
 };
 
 #endif

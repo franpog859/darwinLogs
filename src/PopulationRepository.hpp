@@ -5,6 +5,7 @@
 #include "Child.hpp"
 #include "Adult.hpp"
 #include "Elder.hpp"
+#include "../lib/json.hpp"
 
 class PopulationRepository {
 public:
@@ -16,6 +17,7 @@ public:
 	std::vector<Elder>* getElders();
 
 	void initialize();
+	nlohmann::json toJson();
 
 private:
 	std::vector<Child> children;

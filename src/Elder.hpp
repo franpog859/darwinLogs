@@ -10,6 +10,7 @@ public:
 	~Elder();
 
 	void growOlder();
+	nlohmann::json toJson();
 };
 
 #endif

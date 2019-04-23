@@ -14,7 +14,7 @@ public:
 	static PopulationRepository readPopulation(Parameters *parameters);
 	static void saveLogs(std::vector<Info> info, Parameters * parameters);
 	static void saveEnvironment(Environment *environment, Parameters *parameters);
-	//static void savePopulation(PopulationRepository *populationRepository, Parameters *parameters);
+	static void savePopulation(PopulationRepository *populationRepository, Parameters *parameters);
 	//static void generateGraphs(std::vector<Info> info, Parameters *parameters);
 
 private:
