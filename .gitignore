@@ -4,4 +4,6 @@ Makefile
 cmake_install.cmake
 darwinLogs
 logs.json
+outputPopulation.json
+outputEnvironment.json
 darwinLogs/

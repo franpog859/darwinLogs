@@ -6,9 +6,13 @@
 struct Parameters {
 	bool isHelp = true;
 	int epochs = 0;
+
 	std::string inputEnvironmentFile = "";
 	std::string inputPopulationFile = "";
-	std::string outputLogsFile = ""; // TODO: Delete it after refactor.
+
+	std::string outputEnvironmentFile = "";
+	std::string outputPopulationFile = "";
+	std::string outputLogsFile = ""; 
 	std::string outputFilesPath = "";
 };
 

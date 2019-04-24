@@ -33,13 +33,27 @@ Parameters IoService::parseArgs(int argc, char *argv[]) {
 		return params;
 	}
 
+	cmdl({ "-opp", "--outputPopulation" }, "outputPopulation.json") >> params.outputPopulationFile;
+	cmdl({ "-oe", "--outputEnvironment" }, "outputEnvironment.json") >> params.outputEnvironmentFile; 
+	cmdl({ "-l", "--logs" }, "logs.json") >> params.outputLogsFile;
 	cmdl({ "-op", "--outputPath" }) >> params.outputFilesPath;
-	//cmdl({ "-oe", "--outputEnvironment" }) >> params.outputLogsFile;
-	//cmdl({ "-op", "--outputPopulation" }) >> params.outputLogsFile;
-	cmdl({ "-l", "--logs" }, "logs.json") >> params.outputLogsFile; // TODO: Delete it after refactor.
 
 	params.isHelp = false;
 	return params;
+}
+
+void IoService::printHelp() {
+	std::cout << "DarvinLogs is a simple population evolution symulator." << std::endl;
+	std::cout << "Use flags below to run it:" << std::endl;
+	std::cout << "	-h		--help				- to print this help page" << std::endl;
+	std::cout << "	-e		--epochs			- to set number of epochs (required)" << std::endl;
+	std::cout << "	-ie		--environment		- to set the path to input JSON environment file (required)" << std::endl;
+	std::cout << "	-ip		--population		- to set the path to input JSON population file (required)" << std::endl;
+	std::cout << "	-op		--outputPath		- to set the custom path for the output files" << std::endl;
+	std::cout << "	-l		--logs				- to set the custom name for the output JSON logs file" << std::endl; 
+	std::cout << "	-opp	--outputPopulation	- to set the custom name for the output JSON population file" << std::endl; 
+	std::cout << "	-oe		--outputEnvironment	- to set the custom name for the output JSON environment file" << std::endl; 
+	std::cout << "Example usage: ./darwinLogs -e=12 -ie=data/env.json -ip=data/pop.json -op=data/output/\n";
 }
 
 Environment IoService::readEnvironment(Parameters *parameters) {
@@ -147,27 +161,16 @@ Elder IoService::readElder(nlohmann::json::iterator person) {
 	return elder;
 }
 
-void IoService::printHelp() {
-	std::cout << "DarvinLogs is a simple population evolution symulator." << std::endl;
-	std::cout << "Use flags below to run it:" << std::endl;
-	std::cout << "	-h	--help          - to print this help page" << std::endl;
-	std::cout << "	-e	--epochs        - to set number of epochs (required)" << std::endl;
-	std::cout << "	-ie	--environment   - to set the path to input JSON environment file (required)" << std::endl;
-	std::cout << "	-ip	--population    - to set the path to input JSON population file (required)" << std::endl;
-	std::cout << "	-op	--outputPath    - to set the path for the output environment, population and logs files" << std::endl;
-	std::cout << "	-l	--logs          - to set the custom path for output JSON logs file" << std::endl; // TODO: Delete it after refactor.
-	std::cout << "Example usage: ./darwinLogs -e=12 -ie=data/env.json -ip=data/pop.json -op=data/output/\n";
-}
-
 void IoService::saveLogs(std::vector<Info> info, Parameters * parameters) {
 	try {
-		std::cout << "Saving logs to " << parameters->outputLogsFile << std::endl;
+		std::string outputFileName = parameters->outputFilesPath + parameters->outputLogsFile;
+		std::cout << "Saving logs to " << outputFileName << std::endl;
 		std::vector<nlohmann::json> jsonVector;
 		for (int i = 0; i < info.size(); i++) {
 			jsonVector.push_back(info[i].toJson());
 		}
 		nlohmann::json jsonLogs(jsonVector);
-		std::ofstream outputFile(parameters->outputLogsFile);
+		std::ofstream outputFile(outputFileName);
 		outputFile << std::setw(4) << jsonLogs << std::endl;
 		outputFile.close();
 		std::cout << "Logs saved successfully!" << std::endl;
@@ -180,7 +183,7 @@ void IoService::saveLogs(std::vector<Info> info, Parameters * parameters) {
 
 void IoService::saveEnvironment(Environment *environment, Parameters *parameters) {
 	try {
-		std::string outputFileName = parameters->outputFilesPath + "outputEnvironment.json";
+		std::string outputFileName = parameters->outputFilesPath + parameters->outputEnvironmentFile;
 		std::cout << "Saving environment to " << outputFileName << std::endl;
 		nlohmann::json jsonEnvironment = environment->toJson();
 		std::ofstream outputFile(outputFileName);
@@ -196,7 +199,7 @@ void IoService::saveEnvironment(Environment *environment, Parameters *parameters
 
 void IoService::savePopulation(PopulationRepository *populationRepository, Parameters *parameters) {
 	try {
-		std::string outputFileName = parameters->outputFilesPath + "outputPopulation.json";
+		std::string outputFileName = parameters->outputFilesPath + parameters->outputPopulationFile;
 		std::cout << "Saving population to " << outputFileName << std::endl;
 		nlohmann::json jsonPopulation = populationRepository->toJson();
 		std::ofstream outputFile(outputFileName);
