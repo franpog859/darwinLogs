@@ -7,7 +7,7 @@
 class LogService {
 public:
 	static void printLogs();
-	static std::vector<Info>* getLogs();
+	static std::vector<Info> getLogs();
 	static void saveBuiltInfo();
 
 	static void addGeneralInfo(Environment *environment, PopulationService *populationService);
