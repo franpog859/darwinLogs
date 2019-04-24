@@ -16,12 +16,12 @@ public:
 	~Couple();
 
 	std::vector<Child> begetChildren(Environment * environment);
+	bool isStraight();
 
 private:
 	Adult * first = nullptr;
 	Adult * second = nullptr;
 
-	bool isStraight();
 	Statistics getChildStatistics();
 	bool isChildMale();
 };

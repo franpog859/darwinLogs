@@ -11,7 +11,7 @@ PopulationService ::~PopulationService() {
 	populationRepo = nullptr;
 }
 
-std::vector<Couple> PopulationService::pairCouples() { // TODO: Somehow minify this function. It is huge.
+std::vector<Couple> PopulationService::pairCouples() { 
 	const int adultsNumber = populationRepo->getAdults()->size();
 	std::vector<Couple> couples;
 	if (adultsNumber < 2) {
@@ -130,15 +130,21 @@ Info PopulationService::getGeneralPopulationInfo() {
 	for (int i = 0; i < populationRepo->getChildren()->size(); i++)
 		populationInfo.averageChildsStatistics += populationRepo->getChildren()->at(i).getStats();
 	populationInfo.averageStatistics += populationInfo.averageChildsStatistics;
-	populationInfo.averageChildsStatistics /= populationRepo->getChildren()->size();
+	if (populationRepo->getChildren()->size() > 0) 
+		populationInfo.averageChildsStatistics /= populationRepo->getChildren()->size();
 	for (int i = 0; i < populationRepo->getAdults()->size(); i++)
 		populationInfo.averageAdultsStatistics += populationRepo->getAdults()->at(i).getStats();
 	populationInfo.averageStatistics += populationInfo.averageAdultsStatistics;
-	populationInfo.averageAdultsStatistics /= populationRepo->getAdults()->size();
+	if (populationRepo->getAdults()->size() > 0) 
+		populationInfo.averageAdultsStatistics /= populationRepo->getAdults()->size();
 	for (int i = 0; i < populationRepo->getElders()->size(); i++)
 		populationInfo.averageEldersStatistics += populationRepo->getElders()->at(i).getStats();
 	populationInfo.averageStatistics += populationInfo.averageEldersStatistics;
-	populationInfo.averageEldersStatistics /= populationRepo->getElders()->size();
+	if (populationRepo->getElders()->size() > 0) 
+		populationInfo.averageEldersStatistics /= populationRepo->getElders()->size();
+	if (populationRepo->getChildren()->size() +
+		populationRepo->getAdults()->size() +
+		populationRepo->getElders()->size() > 0) 
 	populationInfo.averageStatistics /=
 		populationRepo->getChildren()->size() +
 		populationRepo->getAdults()->size() +

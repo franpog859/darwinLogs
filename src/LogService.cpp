@@ -20,6 +20,22 @@ void LogService::addGeneralInfo(Environment *environment, PopulationService *pop
 	infoBuilder.averageEldersStatistics = generalPopulationInfo.averageEldersStatistics;
 	infoBuilder.averageStatistics = generalPopulationInfo.averageStatistics;
 }
+void LogService::addCouplesInfo(std::vector<Couple> *couples) {
+	for (int i = 0; i < couples->size(); i++) {
+		if (couples->at(i).isStraight())
+			infoBuilder.straightCouplesNumber++;
+		else
+			infoBuilder.homoCouplesNumber++;
+	}
+}
+
+void LogService::addNewbornsInfo(std::vector<Child> *newborns) {
+	infoBuilder.newbornsNumber = newborns->size();
+}
+
+void LogService::addDeathsInfo(std::vector<Person> *deadPeople) {
+	infoBuilder.deathsNumber = deadPeople->size();
+}
 
 void LogService::printLogs() {
 	if (info.size() == 0) {
@@ -52,21 +68,21 @@ void LogService::printLogs() {
 	std::cout << "	Straight couples number: " << i.straightCouplesNumber << std::endl;
 	std::cout << "	Homo couples number: " << i.homoCouplesNumber << std::endl;
 
-	std::cout << "	Avarage child dexterity: " << i.averageChildsStatistics.dexterity << std::endl;
-	std::cout << "	Avarage child intelligence: " << i.averageChildsStatistics.intelligence << std::endl;
-	std::cout << "	Avarage child strength: " << i.averageChildsStatistics.strength << std::endl;
+	std::cout << "	Average child dexterity: " << i.averageChildsStatistics.dexterity << std::endl;
+	std::cout << "	Average child intelligence: " << i.averageChildsStatistics.intelligence << std::endl;
+	std::cout << "	Average child strength: " << i.averageChildsStatistics.strength << std::endl;
 
-	std::cout << "	Avarage adult dexterity: " << i.averageAdultsStatistics.dexterity << std::endl;
-	std::cout << "	Avarage adult intelligence: " << i.averageAdultsStatistics.intelligence << std::endl;
-	std::cout << "	Avarage adult strength: " << i.averageAdultsStatistics.strength << std::endl;
+	std::cout << "	Average adult dexterity: " << i.averageAdultsStatistics.dexterity << std::endl;
+	std::cout << "	Average adult intelligence: " << i.averageAdultsStatistics.intelligence << std::endl;
+	std::cout << "	Average adult strength: " << i.averageAdultsStatistics.strength << std::endl;
 
-	std::cout << "	Avarage elder dexterity: " << i.averageEldersStatistics.dexterity << std::endl;
-	std::cout << "	Avarage elder intelligence: " << i.averageEldersStatistics.intelligence << std::endl;
-	std::cout << "	Avarage elder strength: " << i.averageEldersStatistics.strength << std::endl;
+	std::cout << "	Average elder dexterity: " << i.averageEldersStatistics.dexterity << std::endl;
+	std::cout << "	Average elder intelligence: " << i.averageEldersStatistics.intelligence << std::endl;
+	std::cout << "	Average elder strength: " << i.averageEldersStatistics.strength << std::endl;
 
-	std::cout << "	Avarage dexterity: " << i.averageStatistics.dexterity << std::endl;
-	std::cout << "	Avarage intelligence: " << i.averageStatistics.intelligence << std::endl;
-	std::cout << "	Avarage strength: " << i.averageStatistics.strength << std::endl;
+	std::cout << "	Average dexterity: " << i.averageStatistics.dexterity << std::endl;
+	std::cout << "	Average intelligence: " << i.averageStatistics.intelligence << std::endl;
+	std::cout << "	Average strength: " << i.averageStatistics.strength << std::endl;
 
 	std::cout << "------------------------------------------------" << std::endl;
 }

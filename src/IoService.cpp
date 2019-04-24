@@ -5,6 +5,7 @@
 #include "Statistics.hpp"
 #include "../lib/argh.h"
 #include "../lib/json.hpp"
+#include "../lib/csvfile.h"
 
 Parameters IoService::parseArgs(int argc, char *argv[]) {
 	Parameters params;
@@ -35,7 +36,7 @@ Parameters IoService::parseArgs(int argc, char *argv[]) {
 
 	cmdl({ "-opp", "--outputPopulation" }, "outputPopulation.json") >> params.outputPopulationFile;
 	cmdl({ "-oe", "--outputEnvironment" }, "outputEnvironment.json") >> params.outputEnvironmentFile; 
-	cmdl({ "-l", "--logs" }, "logs.json") >> params.outputLogsFile;
+	cmdl({ "-l", "--logs" }, "logs.csv") >> params.outputLogsFile;
 	cmdl({ "-op", "--outputPath" }) >> params.outputFilesPath;
 
 	params.isHelp = false;
@@ -50,7 +51,7 @@ void IoService::printHelp() {
 	std::cout << "	-ie		--environment		- to set the path to input JSON environment file (required)" << std::endl;
 	std::cout << "	-ip		--population		- to set the path to input JSON population file (required)" << std::endl;
 	std::cout << "	-op		--outputPath		- to set the custom path for the output files" << std::endl;
-	std::cout << "	-l		--logs				- to set the custom name for the output JSON logs file" << std::endl; 
+	std::cout << "	-l		--logs				- to set the custom name for the output CSV logs file" << std::endl; 
 	std::cout << "	-opp	--outputPopulation	- to set the custom name for the output JSON population file" << std::endl; 
 	std::cout << "	-oe		--outputEnvironment	- to set the custom name for the output JSON environment file" << std::endl; 
 	std::cout << "Example usage: ./darwinLogs -e=12 -ie=data/env.json -ip=data/pop.json -op=data/output/\n";
@@ -161,10 +162,34 @@ Elder IoService::readElder(nlohmann::json::iterator person) {
 	return elder;
 }
 
-void IoService::saveLogs(std::vector<Info> info, Parameters * parameters) {
+void IoService::saveLogs(std::vector<Info> *info, Parameters *parameters) {
 	try {
+
 		std::string outputFileName = parameters->outputFilesPath + parameters->outputLogsFile;
 		std::cout << "Saving logs to " << outputFileName << std::endl;
+		csvfile outputFile(outputFileName);
+		outputFile << "epoch" << "children_number" << "adults_number" << "elders_number" << "males_number" <<
+			"females_number" << "deaths_number" << "newborns_number" << "straight_couples_number" << "homo_couples_number" <<
+			"average_child_dexterity" << "average_child_intelligence" << "average_child_strength" <<
+			"average_adult_dexterity" << "average_adult_intelligence" << "average_adult_strength" <<
+			"average_elder_dexterity" << "average_elder_intelligence" << "average_elder_strength" <<
+			"average_dexterity" << "average_intelligence" << "average_strength" <<
+			"minimal_survival_dexterity" << "minimal_survival_intelligence" << "minimal_survival_strength" <<
+			"minimal_reproduction_dexterity" << "minimal_reproduction_intelligence" << "minimal_reproduction_strength" << endrow;
+		for (int i = 0; i < info->size(); i++) {
+			Info singleInfo = info->at(i);
+			outputFile << i << singleInfo.childrenNumber << singleInfo.adultsNumber << singleInfo.eldersNumber <<
+				singleInfo.maleNumber << singleInfo.femaleNumber << singleInfo.deathsNumber << singleInfo.newbornsNumber <<
+				singleInfo.straightCouplesNumber << singleInfo.homoCouplesNumber <<
+				singleInfo.averageChildsStatistics.dexterity << singleInfo.averageChildsStatistics.intelligence << singleInfo.averageChildsStatistics.strength <<
+				singleInfo.averageAdultsStatistics.dexterity << singleInfo.averageAdultsStatistics.intelligence << singleInfo.averageAdultsStatistics.strength <<
+				singleInfo.averageEldersStatistics.dexterity << singleInfo.averageEldersStatistics.intelligence << singleInfo.averageEldersStatistics.strength <<
+				singleInfo.averageStatistics.dexterity << singleInfo.averageStatistics.intelligence << singleInfo.averageStatistics.strength <<
+				singleInfo.minimalSurvivalStatistics.dexterity << singleInfo.minimalSurvivalStatistics.intelligence << singleInfo.minimalSurvivalStatistics.strength <<
+				singleInfo.minimalReproductionStatistics.dexterity << singleInfo.minimalReproductionStatistics.intelligence << singleInfo.minimalReproductionStatistics.strength << endrow;
+		}
+		std::cout << "Logs saved successfully!" << std::endl;
+/*
 		std::vector<nlohmann::json> jsonVector;
 		for (int i = 0; i < info.size(); i++) {
 			jsonVector.push_back(info[i].toJson());
@@ -173,7 +198,7 @@ void IoService::saveLogs(std::vector<Info> info, Parameters * parameters) {
 		std::ofstream outputFile(outputFileName);
 		outputFile << std::setw(4) << jsonLogs << std::endl;
 		outputFile.close();
-		std::cout << "Logs saved successfully!" << std::endl;
+		*/
 	} 
 	catch (std::exception &e) {
 		std::cerr << "Failed to save logs!" << std::endl;

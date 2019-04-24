@@ -21,13 +21,16 @@ void World::start() {
 	Midwife midwife;
 	for (int i = 0; i < parameters->epochs; i++) {
 		std::vector<Couple> couples = populationService->pairCouples();
-		//LogService::addCouplesInfo(&couples);
+		LogService::addCouplesInfo(&couples);
+
 		std::vector<Child> newborns = midwife.begetChildren(environment, &couples);
-		//LogService::addNewbornsInfo(&newborns);
+		LogService::addNewbornsInfo(&newborns);
+
 		populationService->add(&newborns);
 		std::vector<Person> deadPeople = populationService->killUnadaptedTo(environment);
-		//LogService::addDeathsInfo(&deadPeople);
+		LogService::addDeathsInfo(&deadPeople);
 		LogService::addGeneralInfo(environment, populationService);
+
 		populationService->growOlder();
 		environment->change();
 
