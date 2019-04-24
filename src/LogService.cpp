@@ -87,8 +87,8 @@ void LogService::printLogs() {
 	std::cout << "------------------------------------------------" << std::endl;
 }
 
-std::vector<Info> LogService::getLogs() {
-	return info;
+std::vector<Info>* LogService::getLogs() {
+	return &info;
 }
 
 void LogService::saveBuiltInfo() {
