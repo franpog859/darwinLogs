@@ -16,7 +16,7 @@ public:
 	bool getIsMale();
 	Statistics getStats();
 
-	virtual nlohmann::json toJson() = 0;
+	virtual nlohmann::json toJson();
 
 protected:	
 	Statistics stats;

@@ -21,16 +21,20 @@ void World::start() {
 	Midwife midwife;
 	for (int i = 0; i < parameters->epochs; i++) {
 		std::vector<Couple> couples = populationService->pairCouples();
+		//LogService::addCouplesInfo(&couples);
 		std::vector<Child> newborns = midwife.begetChildren(environment, &couples);
+		//LogService::addNewbornsInfo(&newborns);
 		populationService->add(&newborns);
-		populationService->killUnadaptedTo(environment);
-		LogService::prepareStatisticsFor(environment, populationService);
+		std::vector<Person> deadPeople = populationService->killUnadaptedTo(environment);
+		//LogService::addDeathsInfo(&deadPeople);
+		LogService::addGeneralInfo(environment, populationService);
 		populationService->growOlder();
 		environment->change();
 
+		LogService::saveBuiltInfo();
 		++progressBar;
 		progressBar.display();
 	}
 	progressBar.done();
-	LogService::printPopulationInfo();
+	LogService::printLogs();
 }

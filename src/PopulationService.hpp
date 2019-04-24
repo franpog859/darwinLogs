@@ -15,9 +15,9 @@ public:
 
 	std::vector<Couple> pairCouples();
 	void add(std::vector<Child>*);
-	void killUnadaptedTo(Environment*);
+	std::vector<Person> killUnadaptedTo(Environment*);
 	void growOlder();
-	Info getPopulationInfo();
+	Info getGeneralPopulationInfo();
 
 private:
 	PopulationRepository * populationRepo = nullptr;

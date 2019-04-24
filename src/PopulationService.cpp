@@ -59,25 +59,30 @@ void PopulationService::add(std::vector<Child>* newborns) {
 	}
 }
 
-void PopulationService::killUnadaptedTo(Environment * environment) {
+std::vector<Person> PopulationService::killUnadaptedTo(Environment * environment) {
+	std::vector<Person> deadPeople;
 	for (int i = 0; i < populationRepo->getChildren()->size(); i++) {
 		if (!populationRepo->getChildren()->at(i).canSurvive(environment)) {
+			deadPeople.push_back(populationRepo->getChildren()->at(i));
 			populationRepo->getChildren()->erase(populationRepo->getChildren()->begin() + i);
 			i--;
 		}
 	}
 	for (int i = 0; i < populationRepo->getAdults()->size(); i++) {
 		if (!populationRepo->getAdults()->at(i).canSurvive(environment)) {
+			deadPeople.push_back(populationRepo->getAdults()->at(i));
 			populationRepo->getAdults()->erase(populationRepo->getAdults()->begin() + i);
 			i--;
 		}
 	}
 	for (int i = 0; i < populationRepo->getElders()->size(); i++) {
 		if (!populationRepo->getElders()->at(i).canSurvive(environment)) {
+			deadPeople.push_back(populationRepo->getElders()->at(i));
 			populationRepo->getElders()->erase(populationRepo->getElders()->begin() + i);
 			i--;
 		}
 	}
+	return deadPeople;
 }
 
 void PopulationService::growOlder() {
@@ -96,12 +101,48 @@ void PopulationService::growOlder() {
 	}
 }
 
-Info PopulationService::getPopulationInfo() {
+Info PopulationService::getGeneralPopulationInfo() {
 	Info populationInfo;
+
 	populationInfo.childrenNumber = populationRepo->getChildren()->size();
 	populationInfo.adultsNumber = populationRepo->getAdults()->size();
 	populationInfo.eldersNumber = populationRepo->getElders()->size();
-	// TODO: Somehow get average statistics.
 	
+	for (int i = 0; i < populationRepo->getChildren()->size(); i++) {
+		if (populationRepo->getChildren()->at(i).getIsMale())
+			populationInfo.maleNumber++;
+		else
+			populationInfo.femaleNumber++;
+	}
+	for (int i = 0; i < populationRepo->getAdults()->size(); i++) {
+		if (populationRepo->getAdults()->at(i).getIsMale())
+			populationInfo.maleNumber++;
+		else
+			populationInfo.femaleNumber++;
+	}
+	for (int i = 0; i < populationRepo->getElders()->size(); i++) {
+		if (populationRepo->getElders()->at(i).getIsMale())
+			populationInfo.maleNumber++;
+		else
+			populationInfo.femaleNumber++;
+	}
+
+	for (int i = 0; i < populationRepo->getChildren()->size(); i++)
+		populationInfo.averageChildsStatistics += populationRepo->getChildren()->at(i).getStats();
+	populationInfo.averageStatistics += populationInfo.averageChildsStatistics;
+	populationInfo.averageChildsStatistics /= populationRepo->getChildren()->size();
+	for (int i = 0; i < populationRepo->getAdults()->size(); i++)
+		populationInfo.averageAdultsStatistics += populationRepo->getAdults()->at(i).getStats();
+	populationInfo.averageStatistics += populationInfo.averageAdultsStatistics;
+	populationInfo.averageAdultsStatistics /= populationRepo->getAdults()->size();
+	for (int i = 0; i < populationRepo->getElders()->size(); i++)
+		populationInfo.averageEldersStatistics += populationRepo->getElders()->at(i).getStats();
+	populationInfo.averageStatistics += populationInfo.averageEldersStatistics;
+	populationInfo.averageEldersStatistics /= populationRepo->getElders()->size();
+	populationInfo.averageStatistics /=
+		populationRepo->getChildren()->size() +
+		populationRepo->getAdults()->size() +
+		populationRepo->getElders()->size();
+
 	return populationInfo;
 }

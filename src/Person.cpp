@@ -36,3 +36,14 @@ bool Person::getIsMale() {
 Statistics Person::getStats() {
 	return stats;
 }
+
+nlohmann::json Person::toJson() {
+	nlohmann::json jsonInfo{
+		{"personType", "none"},
+		{"intelligence", stats.intelligence},
+		{"dexterity", stats.dexterity},
+		{"strength", stats.intelligence},
+		{"isMale", isMale}
+	};
+	return jsonInfo;
+}

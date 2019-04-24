@@ -6,11 +6,20 @@
 
 class LogService {
 public:
-	static void prepareStatisticsFor(Environment *environment, PopulationService *populationService);
-	static void printPopulationInfo();
+	static void printLogs();
 	static std::vector<Info> getLogs();
+	static void saveBuiltInfo();
+
+	static void addGeneralInfo(Environment *environment, PopulationService *populationService);
+	static void addCouplesInfo(std::vector<Couple> *couples);
+	static void addNewbornsInfo(std::vector<Child> *newborns);
+	static void addDeathsInfo(std::vector<Person> *deadPeople);
 
 private:
+	static Info infoBuilder;
+
+	static std::vector<Info> info;
+
 	static std::vector<Info> populationInfo;
 	static std::vector<Statistics> minimalSurvivalStats;
 	static std::vector<Statistics> minimalReproductionStats;
