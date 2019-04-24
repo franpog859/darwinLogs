@@ -6,20 +6,18 @@ struct Statistics { //TODO: Add operators +Statistics and +int to the struct.
 	int dexterity = 0;
 	int strength = 0;
 
-	Statistics operator +=(const Statistics stats) {
-		return {
-			intelligence + stats.intelligence,
-			dexterity + stats.dexterity,
-			strength + stats.strength
-		};
+	Statistics &operator +=(const Statistics stats) {
+		this->dexterity += stats.dexterity;
+		this->intelligence += stats.intelligence;
+		this->strength += stats.strength;
+		return *this;
 	}
 
-	Statistics operator /=(const int div) {
-		return {
-			intelligence / div,
-			dexterity / div,
-			strength  / div
-		};
+	Statistics &operator /=(const int div) {
+		this->dexterity /= div;
+		this->intelligence /= div;
+		this->strength /= div;
+		return *this;
 	}
 };
 

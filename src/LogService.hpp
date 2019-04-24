@@ -19,10 +19,6 @@ private:
 	static Info infoBuilder;
 
 	static std::vector<Info> info;
-
-	static std::vector<Info> populationInfo;
-	static std::vector<Statistics> minimalSurvivalStats;
-	static std::vector<Statistics> minimalReproductionStats;
 };
 
 #endif
