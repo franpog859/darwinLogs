@@ -46,14 +46,14 @@ Parameters IoService::parseArgs(int argc, char *argv[]) {
 void IoService::printHelp() {
 	std::cout << "DarvinLogs is a simple population evolution symulator." << std::endl;
 	std::cout << "Use flags below to run it:" << std::endl;
-	std::cout << "	-h		--help				- to print this help page" << std::endl;
-	std::cout << "	-e		--epochs			- to set number of epochs (required)" << std::endl;
-	std::cout << "	-ie		--environment		- to set the path to input JSON environment file (required)" << std::endl;
-	std::cout << "	-ip		--population		- to set the path to input JSON population file (required)" << std::endl;
-	std::cout << "	-op		--outputPath		- to set the custom path for the output files" << std::endl;
-	std::cout << "	-l		--logs				- to set the custom name for the output CSV logs file" << std::endl; 
-	std::cout << "	-opp	--outputPopulation	- to set the custom name for the output JSON population file" << std::endl; 
-	std::cout << "	-oe		--outputEnvironment	- to set the custom name for the output JSON environment file" << std::endl; 
+	std::cout << "  -h     --help                  - to print this help page" << std::endl;
+	std::cout << "  -e     --epochs                - to set number of epochs (required)" << std::endl;
+	std::cout << "  -ie    --environment           - to set the path to input JSON environment file (required)" << std::endl;
+	std::cout << "  -ip    --population            - to set the path to input JSON population file (required)" << std::endl;
+	std::cout << "  -op    --outputPath            - to set the custom path for the output files" << std::endl;
+	std::cout << "  -l     --logs                  - to set the custom name for the output CSV logs file" << std::endl; 
+	std::cout << "  -opp   --outputPopulation      - to set the custom name for the output JSON population file" << std::endl; 
+	std::cout << "  -oe    --outputEnvironment     - to set the custom name for the output JSON environment file" << std::endl; 
 	std::cout << "Example usage: ./darwinLogs -e=12 -ie=data/env.json -ip=data/pop.json -op=data/output/\n";
 }
 
