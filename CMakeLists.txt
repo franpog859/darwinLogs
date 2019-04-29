@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.8.11)
-project (DARWIN_LOGS)
+project (darwinLogs)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mavx2")
@@ -8,9 +8,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mfma")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native")
 set(CMAKE_CXX_COMPILER /usr/bin/g++)
 
+find_package(Boost 1.40.0 COMPONENTS filesystem system iostreams REQUIRED)
 include_directories("${PROJECT_SOURCE_DIR}")
 
-add_executable (darwinLogs 
+add_executable (${PROJECT_NAME} 
     src/Adult.cpp 
     src/IoService.cpp 
     src/Child.cpp 
@@ -26,3 +27,5 @@ add_executable (darwinLogs
     src/Couple.cpp
     src/Midwife.cpp
 )
+
+target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
