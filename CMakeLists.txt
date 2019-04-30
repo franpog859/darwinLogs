@@ -8,7 +8,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mfma")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native")
 set(CMAKE_CXX_COMPILER /usr/bin/g++)
 
-find_package(Boost 1.40.0 COMPONENTS filesystem system iostreams REQUIRED)
+find_package(Boost 1.40.0 COMPONENTS filesystem system iostreams regex REQUIRED)
 include_directories("${PROJECT_SOURCE_DIR}")
 
 add_executable (${PROJECT_NAME} 

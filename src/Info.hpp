@@ -4,7 +4,7 @@
 #include "Statistics.hpp"
 #include "../lib/json.hpp"
 
-struct Info { // TODO: Create full class from this struct for better abstraction.
+struct Info { //TODO: Add + operator for builders in Logger.
 	int childrenNumber = 0;
 	int adultsNumber = 0;
 	int eldersNumber = 0;
@@ -26,7 +26,7 @@ struct Info { // TODO: Create full class from this struct for better abstraction
 	Statistics minimalSurvivalStatistics;
 	Statistics minimalReproductionStatistics;
 
-	nlohmann::json toJson() {
+	nlohmann::json toJson() { //TODO: Delete it. It's not needed anymore.
 		nlohmann::json jsonInfo{
 			{"childrenNumber", childrenNumber},
 			{"adultsNumber", adultsNumber},
