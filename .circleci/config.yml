@@ -17,12 +17,18 @@ jobs:
           name: Install CMake
           command: 'apt-get update && sudo apt-get install -y cmake'
       - run:
+          name: Install Gnuplot
+          command: 'apt-get update && apt-get install -y gnuplot'
+      - run:
+          name: Install Boost
+          command: 'apt-get update && apt-get install -y libboost-all-dev'
+      - run:
           name: Create build files
           command: 'mkdir build ; cd build ; cmake ..'
       - run:
           name: Compile
           command: 'cmake --build build'
-
+      
 workflows:
   version: 2
   commit:
