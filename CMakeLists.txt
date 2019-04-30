@@ -26,6 +26,7 @@ add_executable (${PROJECT_NAME}
     src/Random.cpp
     src/Couple.cpp
     src/Midwife.cpp
+    src/Plotter.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})

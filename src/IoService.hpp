@@ -5,17 +5,18 @@
 #include "Environment.hpp"
 #include "PopulationRepository.hpp"
 #include "Info.hpp"
+#include "Plotter.hpp"
 #include "../lib/json.hpp"
 
-class IoService {
+class IoService : public Plotter {
 public:
 	static Parameters parseArgs(int argc, char *argv[]);
 	static Environment readEnvironment(Parameters *parameters);
 	static PopulationRepository readPopulation(Parameters *parameters);
-	static void saveLogs(std::vector<Info> *info, Parameters * parameters);
+	static void saveLogs(std::vector<Info> *info, Parameters *parameters);
 	static void saveEnvironment(Environment *environment, Parameters *parameters);
 	static void savePopulation(PopulationRepository *populationRepository, Parameters *parameters);
-	//static void generateGraphs(std::vector<Info> info, Parameters *parameters);
+	using Plotter::saveGraphs;
 
 private:
 	static void printHelp();
