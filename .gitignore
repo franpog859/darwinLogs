@@ -8,4 +8,6 @@ logs.json
 logs.csv
 outputPopulation.json
 outputEnvironment.json
+data/output/
+build/
 darwinLogs/

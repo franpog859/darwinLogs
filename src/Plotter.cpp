@@ -2,16 +2,27 @@
 #include "../lib/gnuplot-iostream.h"
 
 void Plotter::saveGraphs(std::vector<Info> *info, Parameters *parameters) {
-    saveAverageDexterityAndMinimumSurvivalDexterity(info, parameters);
-    saveSexNumberDifferenceAndCouplesSexuality(info, parameters);
-    savePeopleNumber(info, parameters);
-    saveEldersBoom(info, parameters);
+    try {
+        std::string outputPath = parameters->outputFilesPath;
+		std::cout << "Saving graphs to " << outputPath << " directory" << std::endl;
+
+        saveAverageDexterityAndMinimumSurvivalDexterity(info, &outputPath);
+        saveSexNumberDifferenceAndCouplesSexuality(info, &outputPath);
+        savePeopleNumber(info, &outputPath);
+        saveEldersBoom(info, &outputPath);
+		std::cout << "Graphs saved successfully!" << std::endl;
+    }
+    catch (std::exception &e) {
+        std::cerr << "Failed to save graphs!" << std::endl;
+		std::cerr << "Error occured: " << e.what() << std::endl;
+    }
+
 }
 
-void Plotter::saveAverageDexterityAndMinimumSurvivalDexterity(std::vector<Info> *info, Parameters *parameters) {
+void Plotter::saveAverageDexterityAndMinimumSurvivalDexterity(std::vector<Info> *info, const std::string *outputPath) {
     Gnuplot gp;
     gp << "set terminal png\n";
-    gp << "set output 'correlation-dexterity.png'\n";
+    gp << "set output '" + *outputPath + "correlation-dexterity.png'\n"; //TODO: Create file name before gp << "set output..."
 
     std::vector<std::pair<int, int>> xy_average_dexterity;
     for(int i = 0; i < info->size(); i++) {
@@ -29,10 +40,10 @@ void Plotter::saveAverageDexterityAndMinimumSurvivalDexterity(std::vector<Info> 
 	gp.send1d(xy_minimal_survival_dexterity);
 }
 
-void Plotter::saveSexNumberDifferenceAndCouplesSexuality(std::vector<Info> *info, Parameters *parameters) {
+void Plotter::saveSexNumberDifferenceAndCouplesSexuality(std::vector<Info> *info, const std::string *outputPath) {
     Gnuplot gp;
     gp << "set terminal png\n";
-    gp << "set output 'correlation-sex-and-couples.png'\n";
+    gp << "set output '" + *outputPath + "correlation-sex-and-couples.png'\n";
 
     std::vector<std::pair<int, int>> xy_sex_and_couples_difference;
     for(int i = 1; i < info->size(); i++) {
@@ -51,10 +62,10 @@ void Plotter::saveSexNumberDifferenceAndCouplesSexuality(std::vector<Info> *info
 	gp.send1d(xy_sex_and_couples_difference);
 }
 
-void Plotter::savePeopleNumber(std::vector<Info> *info, Parameters *parameters) {
+void Plotter::savePeopleNumber(std::vector<Info> *info, const std::string *outputPath) {
     Gnuplot gp;
     gp << "set terminal png\n";
-    gp << "set output 'people-number.png'\n";
+    gp << "set output '" + *outputPath + "people-number.png'\n";
 
     std::vector<std::pair<int, int>> xy_people_number;
     for(int i = 1; i < info->size(); i++) {
@@ -69,10 +80,10 @@ void Plotter::savePeopleNumber(std::vector<Info> *info, Parameters *parameters) 
 	gp.send1d(xy_people_number); 
 }
 
-void Plotter::saveEldersBoom(std::vector<Info> *info, Parameters *parameters) {
+void Plotter::saveEldersBoom(std::vector<Info> *info, const std::string *outputPath) {
     Gnuplot gp;
     gp << "set terminal png\n";
-    gp << "set output 'correlation-elders-dexterity.png'\n";
+    gp << "set output '" + *outputPath + "correlation-elders-dexterity.png'\n";
 
     std::vector<std::pair<int, int>> xy_average_dexterity;
     for(int i = 0; i < info->size(); i++) {
