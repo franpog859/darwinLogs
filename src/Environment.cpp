@@ -28,7 +28,7 @@ void Environment::change() {
 		minimalReproductionStats.intelligence = changeSingleStats(minimalReproductionStats.intelligence);
 		minimalReproductionStats.dexterity = changeSingleStats(minimalReproductionStats.dexterity);
 		minimalReproductionStats.strength = changeSingleStats(minimalReproductionStats.strength);
-	} while (isSurvivalHigherThanReproduction());
+	} while (false); //TODO: Delete it. Whole loop.
 }
 
 int Environment::changeSingleStats(int stats) {

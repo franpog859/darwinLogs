@@ -27,8 +27,9 @@ int main(int argc, char *argv[]) {
 		IoService::saveEnvironment(&environment, &params);
 		IoService::savePopulation(&populationRepo, &params);
 		std::vector<Info> logs = LogService::getLogs();
-		IoService::saveLogs(&logs, &params); //TODO: This should save logs to CSV file.
-		//IoService::generateGraphs(LogService::getLogs(), &params);
+		IoService::saveLogs(&logs, &params); 
+		IoService::saveGraphs(&logs, &params);
 	}
+
 	return 0;
 }
