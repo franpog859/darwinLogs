@@ -22,7 +22,7 @@ add_executable (${PROJECT_NAME}
     src/PopulationService.cpp 
     src/main.cpp 
     src/Environment.cpp 
-    src/LogService.cpp
+    src/Logger.cpp
     src/Random.cpp
     src/Couple.cpp
     src/Midwife.cpp

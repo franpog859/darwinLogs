@@ -4,7 +4,7 @@
 #include "Environment.hpp"
 #include "PopulationService.hpp"
 
-class LogService {
+class Logger {
 public:
 	static void printLogs();
 	static std::vector<Info> getLogs();

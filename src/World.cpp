@@ -1,6 +1,6 @@
 #include <iostream>
 #include "World.hpp"
-#include "LogService.hpp"
+#include "Logger.hpp"
 #include "Couple.hpp"
 #include "../lib/ProgressBar.hpp"
 
@@ -21,23 +21,23 @@ void World::start() {
 	Midwife midwife;
 	for (int i = 0; i < parameters->epochs; i++) {
 		std::vector<Couple> couples = populationService->pairCouples();
-		LogService::addCouplesInfo(&couples);
+		Logger::addCouplesInfo(&couples);
 
 		std::vector<Child> newborns = midwife.begetChildren(environment, &couples);
-		LogService::addNewbornsInfo(&newborns);
+		Logger::addNewbornsInfo(&newborns);
 
 		populationService->add(&newborns);
 		std::vector<Person> deadPeople = populationService->killUnadaptedTo(environment);
-		LogService::addDeathsInfo(&deadPeople);
-		LogService::addGeneralInfo(environment, populationService);
+		Logger::addDeathsInfo(&deadPeople);
+		Logger::addGeneralInfo(environment, populationService);
 
 		populationService->growOlder();
 		environment->change();
 
-		LogService::saveBuiltInfo();
+		Logger::saveBuiltInfo();
 		++progressBar;
 		progressBar.display();
 	}
 	progressBar.done();
-	LogService::printLogs();
+	Logger::printLogs();
 }

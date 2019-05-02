@@ -4,7 +4,7 @@
 #include "Parameters.hpp"
 #include "Random.hpp"
 #include "IoService.hpp"
-#include "LogService.hpp"
+#include "Logger.hpp"
 
 //#define _CRTDBG_MAP_ALLOC // Comment this if you are not debugging it on Windows.
 //#include <stdlib.h> // Comment this if you are not debugging it on Windows.
@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
 
 		IoService::saveEnvironment(&environment, &params);
 		IoService::savePopulation(&populationRepo, &params);
-		std::vector<Info> logs = LogService::getLogs();
+		std::vector<Info> logs = Logger::getLogs();
 		IoService::saveLogs(&logs, &params); 
 		IoService::saveGraphs(&logs, &params);
 	}

@@ -1,11 +1,11 @@
 #include <iostream>
-#include "LogService.hpp"
+#include "Logger.hpp"
 #include "Info.hpp"
 
-Info LogService::infoBuilder;
-std::vector<Info> LogService::info;
+Info Logger::infoBuilder;
+std::vector<Info> Logger::info;
 
-void LogService::addGeneralInfo(Environment *environment, PopulationService *populationService) {
+void Logger::addGeneralInfo(Environment *environment, PopulationService *populationService) {
 	infoBuilder.minimalReproductionStatistics = *environment->getMinimalReproductionStats();
 	infoBuilder.minimalSurvivalStatistics = *environment->getMinimalSurvivalStats();
 
@@ -20,7 +20,7 @@ void LogService::addGeneralInfo(Environment *environment, PopulationService *pop
 	infoBuilder.averageEldersStatistics = generalPopulationInfo.averageEldersStatistics;
 	infoBuilder.averageStatistics = generalPopulationInfo.averageStatistics;
 }
-void LogService::addCouplesInfo(std::vector<Couple> *couples) {
+void Logger::addCouplesInfo(std::vector<Couple> *couples) {
 	for (int i = 0; i < couples->size(); i++) {
 		if (couples->at(i).isStraight())
 			infoBuilder.straightCouplesNumber++;
@@ -29,15 +29,15 @@ void LogService::addCouplesInfo(std::vector<Couple> *couples) {
 	}
 }
 
-void LogService::addNewbornsInfo(std::vector<Child> *newborns) {
+void Logger::addNewbornsInfo(std::vector<Child> *newborns) {
 	infoBuilder.newbornsNumber = newborns->size();
 }
 
-void LogService::addDeathsInfo(std::vector<Person> *deadPeople) {
+void Logger::addDeathsInfo(std::vector<Person> *deadPeople) {
 	infoBuilder.deathsNumber = deadPeople->size();
 }
 
-void LogService::printLogs() {
+void Logger::printLogs() {
 	if (info.size() == 0) {
 		std::cout << "No info exception" << std::endl; //TODO: Handle it with exception.
 		return;
@@ -87,11 +87,11 @@ void LogService::printLogs() {
 	std::cout << "------------------------------------------------" << std::endl;
 }
 
-std::vector<Info> LogService::getLogs() {
+std::vector<Info> Logger::getLogs() {
 	return info;
 }
 
-void LogService::saveBuiltInfo() {
+void Logger::saveBuiltInfo() {
 	info.push_back(infoBuilder);
 	Info newInfoBuilder;
 	infoBuilder = newInfoBuilder;
