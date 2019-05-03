@@ -43,12 +43,25 @@ Couple PopulationService::createCouple(bool * wasPaired) {
 
 Adult * PopulationService::getRandomNotPairedAdult(bool * wasPaired) {
 	int adultsNumber = populationRepo->getAdults()->size();
-	int randomAdult = 0;
-	do {
-		randomAdult = (int)(Random::getRandomDouble() * (double)(adultsNumber));
-	} while (wasPaired[randomAdult]);
-	wasPaired[randomAdult] = true;
-	return &populationRepo->getAdults()->at(randomAdult);
+	int singleNumber = 0;
+	for (int i = 0; i < adultsNumber; i++) {
+		if (!wasPaired[i]) {
+			singleNumber++;
+		}
+	}
+	int randomSingle = (int)(Random::getRandomDouble() * (double)(singleNumber));
+	int singleAdult = 0;
+	for (int i = 0; i < adultsNumber; i++) {
+		if (randomSingle == 0) {
+			singleAdult = i;
+			break;
+		}
+		if (!wasPaired[i]) {
+			randomSingle--;
+		}
+	}
+	wasPaired[singleAdult] = true;
+	return &populationRepo->getAdults()->at(singleAdult);
 }
 
 void PopulationService::add(std::vector<Child>* newborns) {
