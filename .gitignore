@@ -11,3 +11,4 @@ outputEnvironment.json
 data/output/
 build/
 darwinLogs/
+valgrind-out.txt
