@@ -189,16 +189,6 @@ void IoService::saveLogs(std::vector<Info> *info, Parameters *parameters) {
 				singleInfo.minimalReproductionStatistics.dexterity << singleInfo.minimalReproductionStatistics.intelligence << singleInfo.minimalReproductionStatistics.strength << endrow;
 		}
 		std::cout << "Logs saved successfully!" << std::endl;
-/*
-		std::vector<nlohmann::json> jsonVector;
-		for (int i = 0; i < info.size(); i++) {
-			jsonVector.push_back(info[i].toJson());
-		}
-		nlohmann::json jsonLogs(jsonVector);
-		std::ofstream outputFile(outputFileName);
-		outputFile << std::setw(4) << jsonLogs << std::endl;
-		outputFile.close();
-		*/
 	} 
 	catch (std::exception &e) {
 		std::cerr << "Failed to save logs!" << std::endl;
