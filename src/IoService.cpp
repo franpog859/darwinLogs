@@ -54,6 +54,10 @@ Environment IoService::readEnvironment(Parameters *parameters) {
 		nlohmann::json jsonEnvironment;
 		inputFile >> jsonEnvironment;
 
+		if (jsonEnvironment.empty()) {
+			throw EmptyFileException();
+		}
+
 		Statistics minimalSurvivalStats;
 		jsonEnvironment.at("srv_dexterity").get_to(minimalSurvivalStats.dexterity);
 		jsonEnvironment.at("srv_intelligence").get_to(minimalSurvivalStats.intelligence);
@@ -83,10 +87,10 @@ PopulationRepository IoService::readPopulation(Parameters *parameters) {
 		inputFile.close();
 
 		if (!jsonPopulation.is_array()) {
-			throw "Population file does not contain an array.";
+			throw NotArrayException();
 		}
 		if (jsonPopulation.empty()) {
-			throw "Population file is empty.";
+			throw EmptyFileException();
 		}
 
 		PopulationRepository populationRepository; // TODO: Make smaller function for that. It is huge right now.
@@ -109,12 +113,8 @@ PopulationRepository IoService::readPopulation(Parameters *parameters) {
 		return populationRepository;
 	}
 	catch (std::exception &e) {
-		std::cerr << "You should provide valid input file for the population!" << '\n';
 		std::cerr << "Error occured: " << e.what() << '\n';
-		PopulationRepository populationRepository;
-		populationRepository.initialize(); //TODO: Handle wrong input file with by closing program.
-		std::cout << "Population repository initialized with test data." << std::endl;
-		return populationRepository;
+		throw ReadPopulationException();
 	}
 }
 
@@ -150,7 +150,6 @@ Elder IoService::readElder(nlohmann::json::iterator person) {
 
 void IoService::saveLogs(std::vector<Info> *info, Parameters *parameters) {
 	try {
-
 		std::string outputFileName = parameters->outputFilesPath + parameters->outputLogsFile;
 		std::cout << "Saving logs to " << outputFileName << std::endl;
 		csvfile outputFile(outputFileName);

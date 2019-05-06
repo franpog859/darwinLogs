@@ -46,4 +46,25 @@ public:
     }
 };
 
+class ReadPopulationException : public ReadException {
+public:
+    const char * what() noexcept {
+        return "You should provide valid input file for the population!";
+    }
+};
+
+class EmptyFileException : public ReadException {
+public:
+    const char * what() noexcept {
+        return "Input file is empty!";
+    }
+};
+
+class NotArrayException : public ReadException {
+public:
+    const char * what() noexcept {
+        return "Input file does not contain an array!";
+    }
+};
+
 #endif
