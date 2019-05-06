@@ -69,12 +69,8 @@ Environment IoService::readEnvironment(Parameters *parameters) {
 		return environment;
 	}
 	catch (std::exception &e) {
-		std::cerr << "You should provide valid input file for the environment!" << '\n';
 		std::cerr << "Error occured: " << e.what() << '\n';
-		Environment environment;
-		environment.initialize(); //TODO: Handle wrong input file with by closing program.
-		std::cout << "Environment initialized with test data." << std::endl;
-		return environment;
+		throw ReadEnvironmentException();
 	}
 }
 
