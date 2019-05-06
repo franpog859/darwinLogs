@@ -102,4 +102,11 @@ public:
     }
 };
 
+class EmptyInfoException : public std::exception {
+public:
+    const char * what() noexcept {
+        return "Info is empty, nothing to print!";
+    }
+};
+
 #endif

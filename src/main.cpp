@@ -19,6 +19,7 @@ int main(int argc, char *argv[]) {
 
 		World world(&environment, &params, &populationSvc);
 		world.start();
+		Logger::printLogs();
 
 		IoService::saveEnvironment(&environment, &params);
 		IoService::savePopulation(&populationRepo, &params);
