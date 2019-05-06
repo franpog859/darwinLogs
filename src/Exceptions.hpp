@@ -4,7 +4,7 @@
 #include <exception>
 
 // TODO: Add every needed exception here
-class helpException : public std::exception {
+class HelpException : public std::exception {
 public:
     const char * what() noexcept {
         return "Printing help triggered!";

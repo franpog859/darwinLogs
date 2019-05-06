@@ -4,7 +4,6 @@
 #include <string>
 
 struct Parameters {
-	bool isHelp = true;
 	int epochs = 0;
 
 	std::string inputEnvironmentFile = "";

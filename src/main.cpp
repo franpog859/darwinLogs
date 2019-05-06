@@ -5,6 +5,7 @@
 #include "Random.hpp"
 #include "IoService.hpp"
 #include "Logger.hpp"
+#include "Exceptions.hpp"
 
 //#define _CRTDBG_MAP_ALLOC // Comment this if you are not debugging it on Windows.
 //#include <stdlib.h> // Comment this if you are not debugging it on Windows.
@@ -13,8 +14,8 @@
 int main(int argc, char *argv[]) {
 //	_CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF ); // Comment this if you are not debugging it on Windows.
 
-	Parameters params = IoService::parseArgs(argc, argv);
-	if (!params.isHelp) {
+	try {
+		Parameters params = IoService::parseArgs(argc, argv);
 		Random::initialize();
 
 		Environment environment = IoService::readEnvironment(&params);
@@ -29,6 +30,9 @@ int main(int argc, char *argv[]) {
 		std::vector<Info> logs = Logger::getLogs();
 		IoService::saveLogs(&logs, &params); 
 		IoService::saveGraphs(&logs, &params);
+	}
+	catch(HelpException &e) {
+		IoService::printHelp();
 	}
 
 	return 0;

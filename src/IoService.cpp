@@ -3,6 +3,7 @@
 #include <iomanip>
 #include "IoService.hpp"
 #include "Statistics.hpp"
+#include "Exceptions.hpp"
 #include "../lib/argh.h"
 #include "../lib/json.hpp"
 #include "../lib/csvfile.h"
@@ -12,39 +13,31 @@ Parameters IoService::parseArgs(int argc, char *argv[]) {
 	auto cmdl = argh::parser(argc, argv);
 
 	if (cmdl[{ "-h", "--help" }]) {
-		printHelp();
-		return params;
+		throw HelpException();
 	}
 	if (!(cmdl({ "-e", "--epochs" }) >> params.epochs)) {
-		std::cerr << "You should provide valid epochs number!" << '\n';
-		printHelp();
-		params.isHelp = true;
-		return params;
+		std::cerr << "You should provide valid epochs number!" << '\n'; //TODO: Consider to wrap it with exception class inheriting HelpException.
+		throw HelpException();
 	}
 	if (!(cmdl({ "-ie", "--environment" }) >> params.inputEnvironmentFile)) {
 		std::cerr << "You should provide valid input file for the environment!" << '\n';
-		printHelp();
-		params.isHelp = true;
-		return params;
+		throw HelpException();
 	}
 	if (!(cmdl({ "-ip", "--population" }) >> params.inputPopulationFile)) {
 		std::cerr << "You should provide valid input file for the population!" << '\n';
-		printHelp();
-		params.isHelp = true;
-		return params;
+		throw HelpException();
 	}
 
 	cmdl({ "-opp", "--outputPopulation" }, "outputPopulation.json") >> params.outputPopulationFile;
 	cmdl({ "-oe", "--outputEnvironment" }, "outputEnvironment.json") >> params.outputEnvironmentFile; 
 	cmdl({ "-l", "--logs" }, "logs.csv") >> params.outputLogsFile;
 	cmdl({ "-op", "--outputPath" }) >> params.outputFilesPath;
-
-	params.isHelp = false;
+	//TODO: Validate string params with regex.
 	return params;
 }
 
 void IoService::printHelp() {
-	std::cout << "DarvinLogs is a simple population evolution symulator." << std::endl;
+	std::cout << "DarwinLogs is a simple population evolution symulator." << std::endl;
 	std::cout << "Use flags below to run it:" << std::endl;
 	std::cout << "  -h     --help                  - to print this help page" << std::endl;
 	std::cout << "  -e     --epochs                - to set number of epochs (required)" << std::endl;
