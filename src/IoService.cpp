@@ -176,8 +176,8 @@ void IoService::saveLogs(std::vector<Info> *info, Parameters *parameters) {
 		std::cout << "Logs saved successfully!" << std::endl;
 	} 
 	catch (std::exception &e) {
-		std::cerr << "Failed to save logs!" << std::endl;
 		std::cerr << "Error occured: " << e.what() << std::endl;
+		throw SaveLogsException();
 	}
 }
 
@@ -192,8 +192,8 @@ void IoService::saveEnvironment(Environment *environment, Parameters *parameters
 		std::cout << "Environment saved successfully!" << std::endl;
 	}
 	catch (std::exception &e) {
-		std::cerr << "Failed to save environment!" << std::endl;
 		std::cerr << "Error occured: " << e.what() << std::endl;
+		throw SaveEnvironmentException();
 	}
 }
 
@@ -208,8 +208,8 @@ void IoService::savePopulation(PopulationRepository *populationRepository, Param
 		std::cout << "Population saved successfully!" << std::endl;
 	}
 	catch (std::exception &e) {
-		std::cerr << "Failed to save population!" << std::endl;
 		std::cerr << "Error occured: " << e.what() << std::endl;
+		throw SavePopulationException();
 	}
 }
 

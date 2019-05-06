@@ -33,6 +33,9 @@ int main(int argc, char *argv[]) {
 	catch(ReadException &e) {
 		std::cerr << e.what() << std::endl;
 	}
+	catch(SaveException &e) {
+		std::cerr << e.what() << std::endl;
+	}
 	catch(std::exception &e) {
 		std::cerr << "Error occurred: " << e.what() << std::endl;
 	}

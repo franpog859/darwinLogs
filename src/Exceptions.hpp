@@ -67,4 +67,39 @@ public:
     }
 };
 
+class SaveException : public std::exception {
+public:
+    virtual const char * what() noexcept {
+        return "Error occured while saving the file!";
+    }
+};
+
+class SaveLogsException : public SaveException {
+public:
+    const char * what() noexcept {
+        return "Failed to save logs!";
+    }
+};
+
+class SaveEnvironmentException : public SaveException {
+public:
+    const char * what() noexcept {
+        return "Failed to save environment!";
+    }
+};
+
+class SavePopulationException : public SaveException {
+public:
+    const char * what() noexcept {
+        return "Failed to save population!";
+    }
+};
+
+class SaveGraphsException : public SaveException {
+public:
+    const char * what() noexcept {
+        return "Failed to save graphs!";
+    }
+};
+
 #endif
