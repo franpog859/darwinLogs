@@ -1,3 +1,4 @@
+#include <iostream>
 #include "PopulationRepository.hpp"
 #include "PopulationService.hpp"
 #include "World.hpp"
@@ -7,13 +8,7 @@
 #include "Logger.hpp"
 #include "Exceptions.hpp"
 
-//#define _CRTDBG_MAP_ALLOC // Comment this if you are not debugging it on Windows.
-//#include <stdlib.h> // Comment this if you are not debugging it on Windows.
-//#include <crtdbg.h> // Comment this if you are not debugging it on Windows.
-
 int main(int argc, char *argv[]) {
-//	_CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF ); // Comment this if you are not debugging it on Windows.
-
 	try {
 		Parameters params = IoService::parseArgs(argc, argv);
 		Random::initialize();
@@ -32,6 +27,7 @@ int main(int argc, char *argv[]) {
 		IoService::saveGraphs(&logs, &params);
 	}
 	catch(HelpException &e) {
+		std::cerr << e.what() << std::endl;
 		IoService::printHelp();
 	}
 

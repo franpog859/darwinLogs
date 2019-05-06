@@ -16,16 +16,13 @@ Parameters IoService::parseArgs(int argc, char *argv[]) {
 		throw HelpException();
 	}
 	if (!(cmdl({ "-e", "--epochs" }) >> params.epochs)) {
-		std::cerr << "You should provide valid epochs number!" << '\n'; //TODO: Consider to wrap it with exception class inheriting HelpException.
-		throw HelpException();
+		throw InvalidEpochsParameterException();
 	}
 	if (!(cmdl({ "-ie", "--environment" }) >> params.inputEnvironmentFile)) {
-		std::cerr << "You should provide valid input file for the environment!" << '\n';
-		throw HelpException();
+		throw InvalidEnvironmentParameterException();
 	}
 	if (!(cmdl({ "-ip", "--population" }) >> params.inputPopulationFile)) {
-		std::cerr << "You should provide valid input file for the population!" << '\n';
-		throw HelpException();
+		throw InvalidPopulationParameterException();
 	}
 
 	cmdl({ "-opp", "--outputPopulation" }, "outputPopulation.json") >> params.outputPopulationFile;
