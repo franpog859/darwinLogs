@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iterator>
 #include "Logger.hpp"
 #include "Exceptions.hpp"
 #include "Info.hpp"
@@ -22,8 +23,8 @@ void Logger::addGeneralInfo(Environment *environment, PopulationService *populat
 	infoBuilder.averageStatistics = generalPopulationInfo.averageStatistics;
 }
 void Logger::addCouplesInfo(std::vector<Couple> *couples) {
-	for (int i = 0; i < couples->size(); i++) {
-		if (couples->at(i).isStraight())
+	for (std::vector<Couple>::iterator couple = couples->begin(); couple < couples->end(); couple++) {
+		if (couple->isStraight())
 			infoBuilder.straightCouplesNumber++;
 		else
 			infoBuilder.homoCouplesNumber++;

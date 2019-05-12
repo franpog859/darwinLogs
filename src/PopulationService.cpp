@@ -67,8 +67,8 @@ Adult * PopulationService::getRandomNotPairedAdult(bool * wasPaired) {
 void PopulationService::add(std::vector<Child>* newborns) {
 	std::vector<Child>* children = populationRepo->getChildren();
 
-	for (unsigned int i = 0; i < newborns->size(); i++) {
-		children->push_back(newborns->at(i));
+	for (std::vector<Child>::iterator newborn = newborns->begin(); newborn < newborns->end(); newborn++) {
+		children->push_back(*newborn);
 	}
 }
 

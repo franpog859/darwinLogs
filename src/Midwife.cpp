@@ -1,3 +1,4 @@
+#include <iterator>
 #include "Midwife.hpp"
 #include "Random.hpp"
 
@@ -15,10 +16,10 @@ std::vector<Child> Midwife::begetChildren(Environment * environment, std::vector
 
 std::vector<Child> Midwife::giveBirths(Environment * environment, std::vector<Couple> * couples) {
 	std::vector<Child> embryos;
-	for (int i = 0; i < couples->size(); i++) {
-		std::vector<Child> children = couples->at(i).begetChildren(environment);
-		for (int j = 0; j < children.size(); j++) {
-			embryos.push_back(children.at(j));
+	for (std::vector<Couple>::iterator couple = couples->begin(); couple < couples->end(); couple++) {
+		std::vector<Child> children = couple->begetChildren(environment);
+		for (std::vector<Child>::iterator child = children.begin(); child < children.end(); child++) {
+			embryos.push_back(*child);
 		}
 	}
 	return embryos;
@@ -26,9 +27,9 @@ std::vector<Child> Midwife::giveBirths(Environment * environment, std::vector<Co
 
 std::vector<Child> Midwife::mutateEmbryos(std::vector<Child> * embryos) {
 	std::vector<Child> newborns;
-	for (int i = 0; i < embryos->size(); i++) {
-		Statistics stats = embryos->at(i).getStats();
-		bool sexOfTheChild = embryos->at(i).getIsMale();
+	for (std::vector<Child>::iterator embryo = embryos->begin(); embryo < embryos->end(); embryo++) {
+		Statistics stats = embryo->getStats();
+		bool sexOfTheChild = embryo->getIsMale();
 		stats = mutateGenes(&stats);
 		Child newborn(stats, sexOfTheChild);
 		newborns.push_back(newborn);

@@ -32,6 +32,13 @@ public:
     }
 };
 
+class InvalidValuesException : public HelpException {
+public:
+    const char * what() noexcept {
+        return "You should provide valid parameters values!";
+    }
+};
+
 class ReadException : public std::exception {
 public:
     virtual const char * what() noexcept {
