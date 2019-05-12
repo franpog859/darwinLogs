@@ -1,3 +1,4 @@
+#include <iostream>
 #include "PopulationRepository.hpp"
 #include "PopulationService.hpp"
 #include "World.hpp"
@@ -5,16 +6,11 @@
 #include "Random.hpp"
 #include "IoService.hpp"
 #include "Logger.hpp"
-
-//#define _CRTDBG_MAP_ALLOC // Comment this if you are not debugging it on Windows.
-//#include <stdlib.h> // Comment this if you are not debugging it on Windows.
-//#include <crtdbg.h> // Comment this if you are not debugging it on Windows.
+#include "Exceptions.hpp"
 
 int main(int argc, char *argv[]) {
-//	_CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF ); // Comment this if you are not debugging it on Windows.
-
-	Parameters params = IoService::parseArgs(argc, argv);
-	if (!params.isHelp) {
+	try {
+		Parameters params = IoService::parseArgs(argc, argv);
 		Random::initialize();
 
 		Environment environment = IoService::readEnvironment(&params);
@@ -23,12 +19,26 @@ int main(int argc, char *argv[]) {
 
 		World world(&environment, &params, &populationSvc);
 		world.start();
+		Logger::printLogs();
 
 		IoService::saveEnvironment(&environment, &params);
 		IoService::savePopulation(&populationRepo, &params);
 		std::vector<Info> logs = Logger::getLogs();
 		IoService::saveLogs(&logs, &params); 
 		IoService::saveGraphs(&logs, &params);
+	}
+	catch(HelpException &e) {
+		std::cerr << e.what() << std::endl;
+		IoService::printHelp();
+	}
+	catch(ReadException &e) {
+		std::cerr << e.what() << std::endl;
+	}
+	catch(SaveException &e) {
+		std::cerr << e.what() << std::endl;
+	}
+	catch(std::exception &e) {
+		std::cerr << "Error occurred: " << e.what() << std::endl;
 	}
 
 	return 0;

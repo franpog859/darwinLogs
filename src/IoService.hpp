@@ -11,6 +11,7 @@
 class IoService : public Plotter {
 public:
 	static Parameters parseArgs(int argc, char *argv[]);
+	static void printHelp();
 	static Environment readEnvironment(Parameters *parameters);
 	static PopulationRepository readPopulation(Parameters *parameters);
 	static void saveLogs(std::vector<Info> *info, Parameters *parameters);
@@ -19,7 +20,6 @@ public:
 	using Plotter::saveGraphs;
 
 private:
-	static void printHelp();
 	static Child readChild(nlohmann::json::iterator person);
 	static Adult readAdult(nlohmann::json::iterator person);
 	static Elder readElder(nlohmann::json::iterator person);

@@ -36,11 +36,11 @@ bool Couple::isStraight() {
 }
 
 Statistics Couple::getChildStatistics() {
-	return { 
-		(first->getStats().intelligence + second->getStats().intelligence) / 2, // TODO: Handle it in the Statistics methods.  
-		(first->getStats().dexterity + second->getStats().dexterity) / 2,
-		(first->getStats().strength + second->getStats().strength) / 2
-	};
+	Statistics stats;
+	stats += first->getStats();
+	stats += second->getStats();
+	stats /= 2;
+	return stats;
 }
 
 bool Couple::isChildMale() {

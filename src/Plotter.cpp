@@ -1,4 +1,5 @@
 #include "Plotter.hpp"
+#include "Exceptions.hpp"
 #include "../lib/gnuplot-iostream.h"
 
 void Plotter::saveGraphs(std::vector<Info> *info, Parameters *parameters) {
@@ -13,8 +14,8 @@ void Plotter::saveGraphs(std::vector<Info> *info, Parameters *parameters) {
 		std::cout << "Graphs saved successfully!" << std::endl;
     }
     catch (std::exception &e) {
-        std::cerr << "Failed to save graphs!" << std::endl;
 		std::cerr << "Error occured: " << e.what() << std::endl;
+        throw SaveGraphsException();
     }
 
 }
@@ -116,7 +117,7 @@ void Plotter::saveEldersBoom(std::vector<Info> *info, const std::string *outputP
 	gp.send1d(xy_elders);
 
 }
-/*
+/* TODO:
 * różnica ilości śmierci i poprzedniej do różnicy minimalnej cechy do przeżycia
 * różnica ilości narodzin i poprzedniej do różnicy minimalnej cechy do reprodukcji
 * ilość starców i minimalna cecha do przeżycia (dla bardzo małej cechy ilość starców bardzo szybko rośnie)

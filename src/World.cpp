@@ -39,5 +39,4 @@ void World::start() {
 		progressBar.display();
 	}
 	progressBar.done();
-	Logger::printLogs();
 }

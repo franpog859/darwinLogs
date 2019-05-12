@@ -24,7 +24,6 @@ private:
 	Statistics minimalReproductionStats;
 
 	int changeSingleStats(int stats);
-	bool isSurvivalHigherThanReproduction();
 };
 
 #endif 

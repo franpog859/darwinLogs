@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Logger.hpp"
+#include "Exceptions.hpp"
 #include "Info.hpp"
 
 Info Logger::infoBuilder;
@@ -39,8 +40,7 @@ void Logger::addDeathsInfo(std::vector<Person> *deadPeople) {
 
 void Logger::printLogs() {
 	if (info.size() == 0) {
-		std::cout << "No info exception" << std::endl; //TODO: Handle it with exception.
-		return;
+		throw EmptyInfoException();
 	}
 	
 	std::cout << "------------------------------------------------" << std::endl;

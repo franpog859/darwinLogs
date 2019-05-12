@@ -3,6 +3,7 @@
 #include <iomanip>
 #include "IoService.hpp"
 #include "Statistics.hpp"
+#include "Exceptions.hpp"
 #include "../lib/argh.h"
 #include "../lib/json.hpp"
 #include "../lib/csvfile.h"
@@ -12,39 +13,28 @@ Parameters IoService::parseArgs(int argc, char *argv[]) {
 	auto cmdl = argh::parser(argc, argv);
 
 	if (cmdl[{ "-h", "--help" }]) {
-		printHelp();
-		return params;
+		throw HelpException();
 	}
 	if (!(cmdl({ "-e", "--epochs" }) >> params.epochs)) {
-		std::cerr << "You should provide valid epochs number!" << '\n';
-		printHelp();
-		params.isHelp = true;
-		return params;
+		throw InvalidEpochsParameterException();
 	}
 	if (!(cmdl({ "-ie", "--environment" }) >> params.inputEnvironmentFile)) {
-		std::cerr << "You should provide valid input file for the environment!" << '\n';
-		printHelp();
-		params.isHelp = true;
-		return params;
+		throw InvalidEnvironmentParameterException();
 	}
 	if (!(cmdl({ "-ip", "--population" }) >> params.inputPopulationFile)) {
-		std::cerr << "You should provide valid input file for the population!" << '\n';
-		printHelp();
-		params.isHelp = true;
-		return params;
+		throw InvalidPopulationParameterException();
 	}
 
 	cmdl({ "-opp", "--outputPopulation" }, "outputPopulation.json") >> params.outputPopulationFile;
 	cmdl({ "-oe", "--outputEnvironment" }, "outputEnvironment.json") >> params.outputEnvironmentFile; 
 	cmdl({ "-l", "--logs" }, "logs.csv") >> params.outputLogsFile;
 	cmdl({ "-op", "--outputPath" }) >> params.outputFilesPath;
-
-	params.isHelp = false;
+	//TODO: Validate string params with regex.
 	return params;
 }
 
 void IoService::printHelp() {
-	std::cout << "DarvinLogs is a simple population evolution symulator." << std::endl;
+	std::cout << "DarwinLogs is a simple population evolution symulator." << std::endl;
 	std::cout << "Use flags below to run it:" << std::endl;
 	std::cout << "  -h     --help                  - to print this help page" << std::endl;
 	std::cout << "  -e     --epochs                - to set number of epochs (required)" << std::endl;
@@ -64,6 +54,10 @@ Environment IoService::readEnvironment(Parameters *parameters) {
 		nlohmann::json jsonEnvironment;
 		inputFile >> jsonEnvironment;
 
+		if (jsonEnvironment.empty()) {
+			throw EmptyFileException();
+		}
+
 		Statistics minimalSurvivalStats;
 		jsonEnvironment.at("srv_dexterity").get_to(minimalSurvivalStats.dexterity);
 		jsonEnvironment.at("srv_intelligence").get_to(minimalSurvivalStats.intelligence);
@@ -79,12 +73,8 @@ Environment IoService::readEnvironment(Parameters *parameters) {
 		return environment;
 	}
 	catch (std::exception &e) {
-		std::cerr << "You should provide valid input file for the environment!" << '\n';
 		std::cerr << "Error occured: " << e.what() << '\n';
-		Environment environment;
-		environment.initialize(); //TODO: Handle wrong input file with by closing program.
-		std::cout << "Environment initialized with test data." << std::endl;
-		return environment;
+		throw ReadEnvironmentException();
 	}
 }
 
@@ -97,10 +87,10 @@ PopulationRepository IoService::readPopulation(Parameters *parameters) {
 		inputFile.close();
 
 		if (!jsonPopulation.is_array()) {
-			throw "Population file does not contain an array.";
+			throw NotArrayException();
 		}
 		if (jsonPopulation.empty()) {
-			throw "Population file is empty.";
+			throw EmptyFileException();
 		}
 
 		PopulationRepository populationRepository; // TODO: Make smaller function for that. It is huge right now.
@@ -123,12 +113,8 @@ PopulationRepository IoService::readPopulation(Parameters *parameters) {
 		return populationRepository;
 	}
 	catch (std::exception &e) {
-		std::cerr << "You should provide valid input file for the population!" << '\n';
 		std::cerr << "Error occured: " << e.what() << '\n';
-		PopulationRepository populationRepository;
-		populationRepository.initialize(); //TODO: Handle wrong input file with by closing program.
-		std::cout << "Population repository initialized with test data." << std::endl;
-		return populationRepository;
+		throw ReadPopulationException();
 	}
 }
 
@@ -164,7 +150,6 @@ Elder IoService::readElder(nlohmann::json::iterator person) {
 
 void IoService::saveLogs(std::vector<Info> *info, Parameters *parameters) {
 	try {
-
 		std::string outputFileName = parameters->outputFilesPath + parameters->outputLogsFile;
 		std::cout << "Saving logs to " << outputFileName << std::endl;
 		csvfile outputFile(outputFileName);
@@ -189,20 +174,10 @@ void IoService::saveLogs(std::vector<Info> *info, Parameters *parameters) {
 				singleInfo.minimalReproductionStatistics.dexterity << singleInfo.minimalReproductionStatistics.intelligence << singleInfo.minimalReproductionStatistics.strength << endrow;
 		}
 		std::cout << "Logs saved successfully!" << std::endl;
-/*
-		std::vector<nlohmann::json> jsonVector;
-		for (int i = 0; i < info.size(); i++) {
-			jsonVector.push_back(info[i].toJson());
-		}
-		nlohmann::json jsonLogs(jsonVector);
-		std::ofstream outputFile(outputFileName);
-		outputFile << std::setw(4) << jsonLogs << std::endl;
-		outputFile.close();
-		*/
 	} 
 	catch (std::exception &e) {
-		std::cerr << "Failed to save logs!" << std::endl;
 		std::cerr << "Error occured: " << e.what() << std::endl;
+		throw SaveLogsException();
 	}
 }
 
@@ -217,8 +192,8 @@ void IoService::saveEnvironment(Environment *environment, Parameters *parameters
 		std::cout << "Environment saved successfully!" << std::endl;
 	}
 	catch (std::exception &e) {
-		std::cerr << "Failed to save environment!" << std::endl;
 		std::cerr << "Error occured: " << e.what() << std::endl;
+		throw SaveEnvironmentException();
 	}
 }
 
@@ -233,8 +208,8 @@ void IoService::savePopulation(PopulationRepository *populationRepository, Param
 		std::cout << "Population saved successfully!" << std::endl;
 	}
 	catch (std::exception &e) {
-		std::cerr << "Failed to save population!" << std::endl;
 		std::cerr << "Error occured: " << e.what() << std::endl;
+		throw SavePopulationException();
 	}
 }
 
