@@ -38,9 +38,8 @@ Parameters IoService::parseArgs(int argc, char *argv[]) {
 	return params;
 }
 
-//TODO: Validate string params with regex.
 bool IoService::validateParams(Parameters * params) {
-	std::regex inputFileRegex("[a-zA-Z/]*[a-zA-Z]+\\.json");
+	std::regex inputFileRegex("([a-zA-Z]+/)*[a-zA-Z]+\\.json");
 	if (!std::regex_match(params->inputEnvironmentFile, inputFileRegex)) {
 		return false;
 	}

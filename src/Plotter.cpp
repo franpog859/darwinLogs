@@ -35,8 +35,12 @@ void Plotter::saveAverageDexterityAndMinimumSurvivalDexterity(std::vector<Info> 
         xy_minimal_survival_dexterity.push_back(std::make_pair(i, info->at(i).minimalSurvivalStatistics.dexterity));
     }
 
+    gp << "set title 'Correlation of attributes'\n";
+    gp << "set xlabel 'Epoch number'\n";
+    gp << "set ylabel 'Attribute value'\n";
+    gp << "set grid\n";
     gp << "plot '-' with lines title 'average dexterity', ";
-	gp << "'-' with lines title 'minimal survival dexterity'\n";
+	gp << "'-' with lines title 'minimal dexterity to survive'\n";
 	gp.send1d(xy_average_dexterity);
 	gp.send1d(xy_minimal_survival_dexterity);
 }
@@ -48,18 +52,18 @@ void Plotter::saveSexNumberDifferenceAndCouplesSexuality(std::vector<Info> *info
 
     std::vector<std::pair<int, int>> xy_sex_and_couples_difference;
     for(int i = 1; i < info->size(); i++) {
-        int sex_number_difference = info->at(i).maleNumber - info->at(i).femaleNumber;
+        int sex_number_difference = info->at(i-1).maleNumber - info->at(i-1).femaleNumber; //TODO: It should use only adults number!
         sex_number_difference = (sex_number_difference >= 0) ? sex_number_difference : sex_number_difference * -1;
 
-        int couple_sexuality_difference = info->at(i-1).homoCouplesNumber - info->at(i-1).straightCouplesNumber;
+        int couple_sexuality_difference = info->at(i).homoCouplesNumber - info->at(i).straightCouplesNumber;
 
         xy_sex_and_couples_difference.push_back(std::make_pair(couple_sexuality_difference, sex_number_difference));
     }
 
     gp << "set title 'Sex difference'\n";
-    gp << "set xlabel 'homosexual couples - heterosexual couples'\n";
-    gp << "set ylabel '|male number - female number|'\n";
-    gp << "plot '-' with points title 'sex difference'\n";
+    gp << "set xlabel 'How many more homosexual couples there are'\n";
+    gp << "set ylabel 'Difference in number of adults of a given sex'\n";
+    gp << "plot '-' with points title 'correlation of sex difference and pairing'\n";
 	gp.send1d(xy_sex_and_couples_difference);
 }
 
@@ -75,8 +79,9 @@ void Plotter::savePeopleNumber(std::vector<Info> *info, const std::string *outpu
     }
 
     gp << "set title 'People number'\n";
-    gp << "set xlabel 'epoch'\n";
-    gp << "set ylabel 'people number'\n";
+    gp << "set xlabel 'Epoch number'\n";
+    gp << "set ylabel 'People number'\n";
+    gp << "set grid\n";
     gp << "plot '-' with lines title 'people number'\n";
 	gp.send1d(xy_people_number); 
 }
@@ -102,11 +107,19 @@ void Plotter::saveEldersBoom(std::vector<Info> *info, const std::string *outputP
     std::vector<std::pair<int, double>> xy_elders;
     for(int i = 0; i < info->size(); i++) {
         double relative_elders = (double)(info->at(i).eldersNumber) / (double)(info->at(i).maleNumber + info->at(i).femaleNumber);
-        xy_elders.push_back(std::make_pair(i, relative_elders));
+        double relative_elders_percent = relative_elders * 100;
+        xy_elders.push_back(std::make_pair(i, relative_elders_percent));
     }
 
+    gp << "set title 'Elders share in the population'\n";
+    gp << "set xlabel 'Epoch number'\n";
     gp << "set y2tics nomirror\n";
+    gp << "set y2label 'Attributes value'\n";
     gp << "set ytics nomirror\n";
+    gp << "set ylabel 'Elders share in the population'\n";
+    gp << "set termoption enhanced\n";
+    gp << "set format y '%.0f%%'\n";
+    gp << "set grid\n";
     gp << "plot '-' with lines title 'average dexterity' axis x1y2, ";
 	gp << "'-' with lines title 'average intelligence' axis x1y2, ";
 	gp << "'-' with lines title 'average strength' axis x1y2, ";
@@ -117,8 +130,8 @@ void Plotter::saveEldersBoom(std::vector<Info> *info, const std::string *outputP
 	gp.send1d(xy_elders);
 
 }
+
 /* TODO:
 * różnica ilości śmierci i poprzedniej do różnicy minimalnej cechy do przeżycia
 * różnica ilości narodzin i poprzedniej do różnicy minimalnej cechy do reprodukcji
-* ilość starców i minimalna cecha do przeżycia (dla bardzo małej cechy ilość starców bardzo szybko rośnie)
 */
