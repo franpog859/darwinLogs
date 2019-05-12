@@ -52,10 +52,10 @@ void Plotter::saveSexNumberDifferenceAndCouplesSexuality(std::vector<Info> *info
 
     std::vector<std::pair<int, int>> xy_sex_and_couples_difference;
     for(int i = 1; i < info->size(); i++) {
-        int sex_number_difference = info->at(i).maleAdultNumber - info->at(i).femaleAdultNumber; //TODO: It should use only adults number!
+        int sex_number_difference = info->at(i).maleAdultNumber - info->at(i).femaleAdultNumber; 
         sex_number_difference = (sex_number_difference >= 0) ? sex_number_difference : sex_number_difference * -1;
 
-        int couple_sexuality_difference = info->at(i-1).homoCouplesNumber - info->at(i-1).straightCouplesNumber;
+        int couple_sexuality_difference = info->at(i).homoCouplesNumber - info->at(i).straightCouplesNumber;
 
         xy_sex_and_couples_difference.push_back(std::make_pair(couple_sexuality_difference, sex_number_difference));
     }
