@@ -188,7 +188,8 @@ void IoService::saveLogs(std::vector<Info> *info, Parameters *parameters) {
 		std::cout << "Saving logs to " << outputFileName << std::endl;
 		csvfile outputFile(outputFileName);
 		outputFile << "epoch" << "children_number" << "adults_number" << "elders_number" << "males_number" <<
-			"females_number" << "deaths_number" << "newborns_number" << "straight_couples_number" << "homo_couples_number" <<
+			"females_number" << "adult_males_number" << "adult_females_number" << "deaths_number" << 
+			"newborns_number" << "straight_couples_number" << "homo_couples_number" <<
 			"average_child_dexterity" << "average_child_intelligence" << "average_child_strength" <<
 			"average_adult_dexterity" << "average_adult_intelligence" << "average_adult_strength" <<
 			"average_elder_dexterity" << "average_elder_intelligence" << "average_elder_strength" <<
@@ -198,7 +199,8 @@ void IoService::saveLogs(std::vector<Info> *info, Parameters *parameters) {
 		for (int i = 0; i < info->size(); i++) {
 			Info singleInfo = info->at(i);
 			outputFile << i << singleInfo.childrenNumber << singleInfo.adultsNumber << singleInfo.eldersNumber <<
-				singleInfo.maleNumber << singleInfo.femaleNumber << singleInfo.deathsNumber << singleInfo.newbornsNumber <<
+				singleInfo.maleNumber << singleInfo.femaleNumber << singleInfo.maleAdultNumber <<
+				singleInfo.femaleAdultNumber << singleInfo.deathsNumber << singleInfo.newbornsNumber <<
 				singleInfo.straightCouplesNumber << singleInfo.homoCouplesNumber <<
 				singleInfo.averageChildsStatistics.dexterity << singleInfo.averageChildsStatistics.intelligence << singleInfo.averageChildsStatistics.strength <<
 				singleInfo.averageAdultsStatistics.dexterity << singleInfo.averageAdultsStatistics.intelligence << singleInfo.averageAdultsStatistics.strength <<

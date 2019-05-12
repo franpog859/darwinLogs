@@ -12,6 +12,9 @@ struct Info {
 	int maleNumber = 0;
 	int femaleNumber = 0;
 
+	int maleAdultNumber = 0;
+	int femaleAdultNumber = 0;
+
 	int deathsNumber = 0;
 	int newbornsNumber = 0;
 

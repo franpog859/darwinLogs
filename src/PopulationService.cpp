@@ -128,10 +128,14 @@ Info PopulationService::getGeneralPopulationInfo() {
 			populationInfo.femaleNumber++;
 	}
 	for (int i = 0; i < populationRepo->getAdults()->size(); i++) {
-		if (populationRepo->getAdults()->at(i).getIsMale())
+		if (populationRepo->getAdults()->at(i).getIsMale()) {
 			populationInfo.maleNumber++;
-		else
+			populationInfo.maleAdultNumber++;
+		}
+		else {
 			populationInfo.femaleNumber++;
+			populationInfo.femaleAdultNumber++;
+		}
 	}
 	for (int i = 0; i < populationRepo->getElders()->size(); i++) {
 		if (populationRepo->getElders()->at(i).getIsMale())
