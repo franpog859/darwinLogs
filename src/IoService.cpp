@@ -1,4 +1,5 @@
 #include <fstream>
+#include <regex>
 #include <iostream>
 #include <iomanip>
 #include "IoService.hpp"
@@ -29,8 +30,42 @@ Parameters IoService::parseArgs(int argc, char *argv[]) {
 	cmdl({ "-oe", "--outputEnvironment" }, "outputEnvironment.json") >> params.outputEnvironmentFile; 
 	cmdl({ "-l", "--logs" }, "logs.csv") >> params.outputLogsFile;
 	cmdl({ "-op", "--outputPath" }) >> params.outputFilesPath;
-	//TODO: Validate string params with regex.
+
+	if (!validateParams(&params)) {
+		throw InvalidValuesException();
+	}
+
 	return params;
+}
+
+//TODO: Validate string params with regex.
+bool IoService::validateParams(Parameters * params) {
+	std::regex inputFileRegex("[a-zA-Z/]*[a-zA-Z]+\\.json");
+	if (!std::regex_match(params->inputEnvironmentFile, inputFileRegex)) {
+		return false;
+	}
+	if (!std::regex_match(params->inputPopulationFile, inputFileRegex)) {
+		return false;
+	}
+
+	std::regex outputPathRegex("(../)*([a-zA-Z]+/)*");
+	if (!std::regex_match(params->outputFilesPath, outputPathRegex)) {
+		return false;
+	}
+
+	std::regex outputJSONFileRegex("([a-zA-Z]+\\.json)*");
+	if (!std::regex_match(params->outputEnvironmentFile, outputJSONFileRegex)) {
+		return false;
+	}
+	if (!std::regex_match(params->outputPopulationFile, outputJSONFileRegex)) {
+		return false;
+	}
+
+	std::regex outputCSVFileRegex("([a-zA-Z]+\\.csv)*");
+	if (!std::regex_match(params->outputLogsFile, outputCSVFileRegex)) {
+		return false;
+	}
+	return true;
 }
 
 void IoService::printHelp() {
@@ -38,8 +73,8 @@ void IoService::printHelp() {
 	std::cout << "Use flags below to run it:" << std::endl;
 	std::cout << "  -h     --help                  - to print this help page" << std::endl;
 	std::cout << "  -e     --epochs                - to set number of epochs (required)" << std::endl;
-	std::cout << "  -ie    --environment           - to set the path to input JSON environment file (required)" << std::endl;
-	std::cout << "  -ip    --population            - to set the path to input JSON population file (required)" << std::endl;
+	std::cout << "  -ie    --environment           - to set the path + name to input JSON environment file (required)" << std::endl;
+	std::cout << "  -ip    --population            - to set the path + name to input JSON population file (required)" << std::endl;
 	std::cout << "  -op    --outputPath            - to set the custom path for the output files" << std::endl;
 	std::cout << "  -l     --logs                  - to set the custom name for the output CSV logs file" << std::endl; 
 	std::cout << "  -opp   --outputPopulation      - to set the custom name for the output JSON population file" << std::endl; 

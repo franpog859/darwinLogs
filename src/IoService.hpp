@@ -20,6 +20,7 @@ public:
 	using Plotter::saveGraphs;
 
 private:
+	static bool validateParams(Parameters *parameters);
 	static Child readChild(nlohmann::json::iterator person);
 	static Adult readAdult(nlohmann::json::iterator person);
 	static Elder readElder(nlohmann::json::iterator person);
