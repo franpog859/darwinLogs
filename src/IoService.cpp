@@ -38,9 +38,8 @@ Parameters IoService::parseArgs(int argc, char *argv[]) {
 	return params;
 }
 
-//TODO: Validate string params with regex.
 bool IoService::validateParams(Parameters * params) {
-	std::regex inputFileRegex("[a-zA-Z/]*[a-zA-Z]+\\.json");
+	std::regex inputFileRegex("([a-zA-Z]+/)*[a-zA-Z]+\\.json");
 	if (!std::regex_match(params->inputEnvironmentFile, inputFileRegex)) {
 		return false;
 	}
@@ -154,30 +153,29 @@ PopulationRepository IoService::readPopulation(Parameters *parameters) {
 }
 
 Child IoService::readChild(nlohmann::json::iterator person) { 	
-	Statistics stats; // TODO: Make new function for that. Keep in mind that it should not be single function because adavanced stats could be different for every age!
-	person.value().at("dexterity").get_to(stats.dexterity);
-	person.value().at("intelligence").get_to(stats.intelligence);
-	person.value().at("strength").get_to(stats.strength);
+	Statistics stats = readStatistics(person);
 	bool isMale = person.value().at("isMale");
 	Child child(stats, isMale);
 	return child;
 }
 
-Adult IoService::readAdult(nlohmann::json::iterator person) { 	
-	Statistics stats;
+Statistics IoService::readStatistics(nlohmann::json::iterator person) {
+	Statistics stats; // TODO: Keep in mind that it should not be single function because adavanced stats could be different for every age!
 	person.value().at("dexterity").get_to(stats.dexterity);
 	person.value().at("intelligence").get_to(stats.intelligence);
 	person.value().at("strength").get_to(stats.strength);
+	return stats;
+}
+
+Adult IoService::readAdult(nlohmann::json::iterator person) { 	
+	Statistics stats = readStatistics(person);
 	bool isMale = person.value().at("isMale");
 	Adult adult(stats, isMale);
 	return adult;
 }
 
 Elder IoService::readElder(nlohmann::json::iterator person) { 	
-	Statistics stats;
-	person.value().at("dexterity").get_to(stats.dexterity);
-	person.value().at("intelligence").get_to(stats.intelligence);
-	person.value().at("strength").get_to(stats.strength);
+	Statistics stats = readStatistics(person);
 	bool isMale = person.value().at("isMale");
 	Elder elder(stats, isMale);
 	return elder;
@@ -189,7 +187,8 @@ void IoService::saveLogs(std::vector<Info> *info, Parameters *parameters) {
 		std::cout << "Saving logs to " << outputFileName << std::endl;
 		csvfile outputFile(outputFileName);
 		outputFile << "epoch" << "children_number" << "adults_number" << "elders_number" << "males_number" <<
-			"females_number" << "deaths_number" << "newborns_number" << "straight_couples_number" << "homo_couples_number" <<
+			"females_number" << "adult_males_number" << "adult_females_number" << "deaths_number" << 
+			"newborns_number" << "straight_couples_number" << "homo_couples_number" <<
 			"average_child_dexterity" << "average_child_intelligence" << "average_child_strength" <<
 			"average_adult_dexterity" << "average_adult_intelligence" << "average_adult_strength" <<
 			"average_elder_dexterity" << "average_elder_intelligence" << "average_elder_strength" <<
@@ -199,7 +198,8 @@ void IoService::saveLogs(std::vector<Info> *info, Parameters *parameters) {
 		for (int i = 0; i < info->size(); i++) {
 			Info singleInfo = info->at(i);
 			outputFile << i << singleInfo.childrenNumber << singleInfo.adultsNumber << singleInfo.eldersNumber <<
-				singleInfo.maleNumber << singleInfo.femaleNumber << singleInfo.deathsNumber << singleInfo.newbornsNumber <<
+				singleInfo.maleNumber << singleInfo.femaleNumber << singleInfo.maleAdultNumber <<
+				singleInfo.femaleAdultNumber << singleInfo.deathsNumber << singleInfo.newbornsNumber <<
 				singleInfo.straightCouplesNumber << singleInfo.homoCouplesNumber <<
 				singleInfo.averageChildsStatistics.dexterity << singleInfo.averageChildsStatistics.intelligence << singleInfo.averageChildsStatistics.strength <<
 				singleInfo.averageAdultsStatistics.dexterity << singleInfo.averageAdultsStatistics.intelligence << singleInfo.averageAdultsStatistics.strength <<

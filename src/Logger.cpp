@@ -17,6 +17,8 @@ void Logger::addGeneralInfo(Environment *environment, PopulationService *populat
 	infoBuilder.eldersNumber = generalPopulationInfo.eldersNumber;
 	infoBuilder.maleNumber = generalPopulationInfo.maleNumber;
 	infoBuilder.femaleNumber = generalPopulationInfo.femaleNumber;
+	infoBuilder.maleAdultNumber = generalPopulationInfo.maleAdultNumber;
+	infoBuilder.femaleAdultNumber = generalPopulationInfo.femaleAdultNumber;
 	infoBuilder.averageChildsStatistics = generalPopulationInfo.averageChildsStatistics;
 	infoBuilder.averageAdultsStatistics = generalPopulationInfo.averageAdultsStatistics;
 	infoBuilder.averageEldersStatistics = generalPopulationInfo.averageEldersStatistics;
@@ -62,6 +64,9 @@ void Logger::printLogs() {
 
 	std::cout << "	Males number: " << i.maleNumber << std::endl;
 	std::cout << "	Females number: " << i.femaleNumber << std::endl;
+
+	std::cout << "	Adult males number: " << i.maleAdultNumber << std::endl;
+	std::cout << "	Adult females number: " << i.femaleAdultNumber << std::endl;
 
 	std::cout << "	Newborns number: " << i.newbornsNumber << std::endl;
 	std::cout << "	Deaths number: " << i.deathsNumber << std::endl;

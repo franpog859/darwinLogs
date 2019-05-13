@@ -7,7 +7,7 @@
 class Child : public Person {
 public:
 	Child();
-	using Person::Person; // Change it to actual constructor with some parameters. It should be different for every type of person.
+	using Person::Person; //TODO: Change it to actual constructor with some parameters. It should be different for every type of person.
 	~Child();
 
 	Adult growOlder();

@@ -12,7 +12,6 @@ public:
 	Environment(Statistics minimalSurvivalStats, Statistics minimalReproductionStats);
 	~Environment();
 
-	void initialize(); 
 	void change();
 	Statistics* getMinimalSurvivalStats();
 	Statistics* getMinimalReproductionStats();
