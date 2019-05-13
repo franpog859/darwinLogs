@@ -27,16 +27,16 @@ int Environment::changeSingleStats(int stats) {
 }
 
 Statistics* Environment::getMinimalSurvivalStats() {
-	return &minimalReproductionStats;
+	return &minimalSurvivalStats;
 }
 Statistics* Environment::getMinimalReproductionStats() {
-	return &minimalSurvivalStats;
+	return &minimalReproductionStats;
 }
 
 nlohmann::json Environment::toJson() {
 	nlohmann::json jsonEnvironment{
 		{"srv_dexterity", minimalSurvivalStats.dexterity},
-		{"srv_intelligence", minimalReproductionStats.intelligence},
+		{"srv_intelligence", minimalSurvivalStats.intelligence},
 		{"srv_strength", minimalSurvivalStats.strength},
 		{"rep_dexterity", minimalReproductionStats.dexterity},
 		{"rep_intelligence", minimalReproductionStats.intelligence},
