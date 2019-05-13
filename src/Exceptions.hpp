@@ -3,7 +3,6 @@
 
 #include <exception>
 
-// TODO: Add every needed exception here
 class HelpException : public std::exception {
 public:
     virtual const char * what() noexcept {

@@ -38,10 +38,10 @@ std::vector<Child> Midwife::mutateEmbryos(std::vector<Child> * embryos) {
 }
 
 Statistics Midwife::mutateGenes(Statistics * stats) {
-	Statistics statistics = {
-		stats->intelligence + (int)(Random::getRandomDouble() * (double)(MAX_MUTATION_CHANGE)-(double)(MAX_MUTATION_CHANGE) / 2), // TODO: It can be somewhere in Random class. Function like getRandomIntResultant(const int).
-		stats->dexterity + (int)(Random::getRandomDouble() * (double)(MAX_MUTATION_CHANGE)-(double)(MAX_MUTATION_CHANGE) / 2),
-		stats->strength + (int)(Random::getRandomDouble() * (double)(MAX_MUTATION_CHANGE)-(double)(MAX_MUTATION_CHANGE) / 2)
+	Statistics mutation = {
+		(int)(Random::getRandomDouble() * (double)(MAX_MUTATION_CHANGE)-(double)(MAX_MUTATION_CHANGE) / 2), 
+		(int)(Random::getRandomDouble() * (double)(MAX_MUTATION_CHANGE)-(double)(MAX_MUTATION_CHANGE) / 2),
+		(int)(Random::getRandomDouble() * (double)(MAX_MUTATION_CHANGE)-(double)(MAX_MUTATION_CHANGE) / 2)
 	};
-	return statistics;
+	return *stats + mutation;
 }

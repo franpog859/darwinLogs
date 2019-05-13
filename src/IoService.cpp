@@ -153,30 +153,29 @@ PopulationRepository IoService::readPopulation(Parameters *parameters) {
 }
 
 Child IoService::readChild(nlohmann::json::iterator person) { 	
-	Statistics stats; // TODO: Make new function for that. Keep in mind that it should not be single function because adavanced stats could be different for every age!
-	person.value().at("dexterity").get_to(stats.dexterity);
-	person.value().at("intelligence").get_to(stats.intelligence);
-	person.value().at("strength").get_to(stats.strength);
+	Statistics stats = readStatistics(person);
 	bool isMale = person.value().at("isMale");
 	Child child(stats, isMale);
 	return child;
 }
 
-Adult IoService::readAdult(nlohmann::json::iterator person) { 	
-	Statistics stats;
+Statistics IoService::readStatistics(nlohmann::json::iterator person) {
+	Statistics stats; // TODO: Keep in mind that it should not be single function because adavanced stats could be different for every age!
 	person.value().at("dexterity").get_to(stats.dexterity);
 	person.value().at("intelligence").get_to(stats.intelligence);
 	person.value().at("strength").get_to(stats.strength);
+	return stats;
+}
+
+Adult IoService::readAdult(nlohmann::json::iterator person) { 	
+	Statistics stats = readStatistics(person);
 	bool isMale = person.value().at("isMale");
 	Adult adult(stats, isMale);
 	return adult;
 }
 
 Elder IoService::readElder(nlohmann::json::iterator person) { 	
-	Statistics stats;
-	person.value().at("dexterity").get_to(stats.dexterity);
-	person.value().at("intelligence").get_to(stats.intelligence);
-	person.value().at("strength").get_to(stats.strength);
+	Statistics stats = readStatistics(person);
 	bool isMale = person.value().at("isMale");
 	Elder elder(stats, isMale);
 	return elder;

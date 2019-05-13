@@ -16,7 +16,7 @@ World::~World() {
 
 void World::start() {
 	std::cout << "World has started. It can take a while." << std::endl;
-	const int PROGRESS_BAR_WIDTH = 50; //TODO: Keep progress bar and other console communication in some static class.
+	const int PROGRESS_BAR_WIDTH = 50; 
 	ProgressBar progressBar(parameters->epochs, PROGRESS_BAR_WIDTH);
 	Midwife midwife;
 	for (int i = 0; i < parameters->epochs; i++) {

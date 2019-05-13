@@ -11,15 +11,6 @@ Environment::Environment(Statistics minimalSurvivalStats, Statistics minimalRepr
 Environment::~Environment() {
 }
 
-void Environment::initialize() { // This is just a mock for now. //TODO: Delete it.
-	minimalSurvivalStats.intelligence = 40;
-	minimalSurvivalStats.dexterity = 40;
-	minimalSurvivalStats.strength = 40;
-	minimalReproductionStats.intelligence = 60;
-	minimalReproductionStats.dexterity = 60;
-	minimalReproductionStats.strength = 60;
-}
-
 void Environment::change() {
 	minimalSurvivalStats.intelligence = changeSingleStats(minimalSurvivalStats.intelligence);
 	minimalSurvivalStats.dexterity = changeSingleStats(minimalSurvivalStats.dexterity);

@@ -23,7 +23,7 @@ void Plotter::saveGraphs(std::vector<Info> *info, Parameters *parameters) {
 void Plotter::saveAverageDexterityAndMinimumSurvivalDexterity(std::vector<Info> *info, const std::string *outputPath) {
     Gnuplot gp;
     gp << "set terminal png\n";
-    gp << "set output '" + *outputPath + "correlation-dexterity.png'\n"; //TODO: Create file name before gp << "set output..."
+    gp << "set output '" + *outputPath + "correlation-dexterity.png'\n"; 
 
     std::vector<std::pair<int, int>> xy_average_dexterity;
     for(int i = 0; i < info->size(); i++) {
@@ -132,6 +132,6 @@ void Plotter::saveEldersBoom(std::vector<Info> *info, const std::string *outputP
 }
 
 /* TODO:
-* różnica ilości śmierci i poprzedniej do różnicy minimalnej cechy do przeżycia
-* różnica ilości narodzin i poprzedniej do różnicy minimalnej cechy do reprodukcji
+* current deaths number and the last one difference to minimal attribute to survive
+* current births number and the last one difference to minimal attribute to reproduction
 */

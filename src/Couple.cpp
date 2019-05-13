@@ -36,9 +36,7 @@ bool Couple::isStraight() {
 }
 
 Statistics Couple::getChildStatistics() {
-	Statistics stats;
-	stats += first->getStats();
-	stats += second->getStats();
+	Statistics stats = first->getStats() + second->getStats();
 	stats /= 2;
 	return stats;
 }

@@ -1,7 +1,7 @@
 #ifndef STATISTICS_HPP
 #define STATISTICS_HPP
 
-struct Statistics { //TODO: Add operators +Statistics and +int to the struct.
+struct Statistics { 
 	int intelligence = 0;
 	int dexterity = 0;
 	int strength = 0;
@@ -18,6 +18,13 @@ struct Statistics { //TODO: Add operators +Statistics and +int to the struct.
 		this->intelligence /= div;
 		this->strength /= div;
 		return *this;
+	}
+
+	Statistics operator +(const Statistics addend) {
+		Statistics statistics;
+		statistics += *this;
+		statistics += addend;
+		return statistics;
 	}
 };
 
