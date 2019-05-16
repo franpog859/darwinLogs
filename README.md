@@ -68,14 +68,20 @@ If you are Ubuntu (or other Linux distro) user you can run `test.sh` script whic
 
 We can clearly see that something bad happened around 60-th epoch. Number of people started to decrease drasticly. On the second chart we can observe that it probably was the increasing minimal dexterity needed to survive.
 
-<img src="https://raw.githubusercontent.com/franpog859/darwinLogs/master/docs/2-delay-correlation-sex-and-couples.png">
+<p align="center">
+  <img src="https://raw.githubusercontent.com/franpog859/darwinLogs/master/docs/2-delay-correlation-sex-and-couples.png">
+</p>
 
 In the second attribute correlation chart we can observe even more clearly that the change of average attribute is related to the environment. If the need for dexterity decreases, people's dexterity decreases too. They are getting lazy. If it increases, people's dexterity increases too. We can even observe the delay of the change and therefore what causes what. People's attribute changes much later that the environment. It can cause problems as we observed in the first two charts.
 
-<img src="https://raw.githubusercontent.com/franpog859/darwinLogs/master/docs/3-not-linear-correlation-sex-and-couples.png">
+<p align="center">
+  <img src="https://raw.githubusercontent.com/franpog859/darwinLogs/master/docs/3-not-linear-correlation-sex-and-couples.png">
+</p>
 
 I tried to show the linear relation with sex difference and difference of number of homosexual and heterosexual couples. If the sex difference increases number of homosexual couples should increase too. I cannot observe it in the chart tho. If you can see any mistake I did, tell me!
 
-<img src="https://raw.githubusercontent.com/franpog859/darwinLogs/master/docs/4-elders-boom-correlation-elders-dexterity.png">
+<p align="center">
+  <img src="https://raw.githubusercontent.com/franpog859/darwinLogs/master/docs/4-elders-boom-correlation-elders-dexterity.png">
+</p>
 
 If there is no need to have high survival attributes elders are dying much longer that normally. We can observe here that elders are more than 50% of the population in the 5 - 20 epoch interval. After that higher need for intelligence appeared and therefore fraction of elders in the population dropped to about 40%.
