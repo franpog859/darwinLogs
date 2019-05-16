@@ -2,50 +2,86 @@
 
 [![CircleCI](https://circleci.com/gh/franpog859/darwinLogs.svg?style=shield)](https://circleci.com/gh/franpog859/darwinLogs)
 
-**WIP** - DarwinLogs is a simple population evolution simulator. A given start population goes through a number of generations. After all changes it returns statistics of all generations. This is a second version of [Project Darwin](https://github.com/franpog859/darwin).
+DarwinLogs is a simple population evolution simulator. A given start population goes through a number of generations. After all changes it returns statistics of all generations. This is a second version of [Project Darwin](https://github.com/franpog859/darwin).
 
-User provides environment and population in JSON files. After all program returns information also in JSON file. It is important for further web layer implementation.
+User provides environment and population in JSON files. After all program returns plots with statistics data, output environment and population in JSON files which can be used as input data and all statistics in CSV file for further analysis.
 
 ## Main assumptions
 
-- Input and output data is provided in JSON format. It will make web layer implementation easier
+- Input and output data is provided in JSON format. It will make web layer implementation easier and allow continuing population execution
 - All program behavior issues are logged to standard output. It will make easier process of finding problems with correctly working program
-- Output file is provided in the array format. It will make iterative processes of creating output graphs easier
+- Output file is provided in the CSV format. It will make iterative processes of creating output graphs easier and allow easy fetching data in other programs
 
 ## Used outsource libraries
 
+- [json](https://github.com/nlohmann/json) - JSON format manipulation
+- [csvfile](https://gist.github.com/rudolfovich/f250900f1a833e715260a66c87369d15) - CSV format manipulation
 - [argh](https://github.com/adishavit/argh) - flags parsing
 - [progress-cpp](https://github.com/prakhar1989/progress-cpp) - progress bar showing
-- [json](https://github.com/nlohmann/json) - JSON format manipulation
-- [CRT](https://docs.microsoft.com/pl-pl/visualstudio/debugger/finding-memory-leaks-using-the-crt-library) - memory leaks detecting (only for Windows development)
+- [gnuplot](http://www.gnuplot.info/) - plotter
+- [gnuplot-iostream](https://github.com/dstahlke/gnuplot-iostream) - Gnuplot facade for plotting graphs
+- [libboost-all-dev](https://packages.debian.org/pl/sid/libboost-all-dev) - package used to connecto to plotter
+- [valgrind](http://valgrind.org/) - checking memory leaks
 
-First three libraries are included locally so there will be no problems with dependencies. `CRT` library is used only for developing purposes with Windows system. If you do not develop it on Windows or create production binary just comment marked lines in `src/main.cpp` file.
+To install Gnuplot, Boost and Valgrind run:
+
+```sh
+sudo apt-get update
+sudo apt-get install -y gnuplot
+sudo apt-get install -y libboost-all-dev
+sudo apt-get install -y valgrind
+```
+
+Valgrind is not required for DarwinLogs usage. It is used in the development process to check memory leaks. Other libraries are imported locally so you do not need to bother.
 
 ## Usage
-
-Make sure you have marked lines in `src/main.cpp` file commented. To build the program run:
 
 ```sh
 cmake .
 make
+./darwinLogs
 ```
 
 Program prints help if run with incorrect flags. You can also print it using `-h` flag. Input files format is coherent with `data/pop.json` and `data/env.json` files used for manual testing. First of them provides input population and the second input environment.
 
-## Further implementation
+## Development
 
-- [ ] Add `const` word in all functions which do not change its objects and for all arguments that are pointers and should not be changed in the function
-- [ ] Add move and copy `=` operators and move and copy constructor for all classes
-- [ ] Fix minor issues marked in code with `// TODO:` comments
-- [ ] Add unit and acceptance tests
-- [ ] Extend output data with average person statistics in all ages and environment in the epoch
-- [ ] Connect input files and add output file with output population and environment for further evolution continuation
-- [ ] Optimize drawing algorithm for creating couples
-- [ ] Make children statistics depend on their parents ability to survive
-- [ ] Make number of children depend on the adaptation to the environment of the couple
-- [ ] Save output files regularly to prevent unchecked memory growth
-- [ ] Extend output data with number of children births, number of orphans, number of dead children, heterosexual couples, homosexual couples, dead elders, dead adults, number of ultra elders, number of people, average man statistics, average woman statistics
-- [ ] Extend world with random events such as drastic climate change, god birth, pandemic, Noah Ark
-- [ ] Create simple REST service which gets input data and respond with output data
-- [ ] Create simple WEB UI using service API, creating input data and showing response with graphs
-- [ ] Containerize service and deploy it in test environment
+To clone the repository run:
+
+```sh
+git clone https://github.com/franpog859/darwinLogs.git
+```
+
+If you are Ubuntu (or other Linux distro) user you can run `test.sh` script which builds, compiles and runs the program with memory leaks check.
+
+## Plots examples
+
+<p align="center">
+<table>
+  <tr>
+    <th></th>
+    <th scope="col"><img src="https://raw.githubusercontent.com/franpog859/darwinLogs/master/docs/1-attribute-correlation-people-number.png"></th>
+    <th scope="col"><img src="https://raw.githubusercontent.com/franpog859/darwinLogs/master/docs/1-attribute-correlation-correlation-dexterity.png"></th>
+  </tr>
+</table>
+</p>
+
+We can clearly see that something bad happened around 60-th epoch. Number of people started to decrease drasticly. On the second chart we can observe that it probably was the increasing minimal dexterity needed to survive.
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/franpog859/darwinLogs/master/docs/2-delay-correlation-sex-and-couples.png">
+</p>
+
+In the second attribute correlation chart we can observe even more clearly that the change of average attribute is related to the environment. If the need for dexterity decreases, people's dexterity decreases too. They are getting lazy. If it increases, people's dexterity increases too. We can even observe the delay of the change and therefore what causes what. People's attribute changes much later that the environment. It can cause problems as we observed in the first two charts.
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/franpog859/darwinLogs/master/docs/3-not-linear-correlation-sex-and-couples.png">
+</p>
+
+I tried to show the linear relation with sex difference and difference of number of homosexual and heterosexual couples. If the sex difference increases number of homosexual couples should increase too. I cannot observe it in the chart tho. If you can see any mistake I did, tell me!
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/franpog859/darwinLogs/master/docs/4-elders-boom-correlation-elders-dexterity.png">
+</p>
+
+If there is no need to have high survival attributes elders are dying much longer that normally. We can observe here that elders are more than 50% of the population in the 5 - 20 epoch interval. After that higher need for intelligence appeared and therefore fraction of elders in the population dropped to about 40%.

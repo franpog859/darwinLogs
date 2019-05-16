@@ -16,7 +16,7 @@ fi
 echo "Running make..."
 make
 
-echo "Running example usage..." #Check if it actually works on MACOS
+echo "Running example usage..." #TODO: Check if it actually works on MACOS
 echo "To check memory leaks run: cat valgrind-out.txt"
 valgrind --leak-check=full \
          --show-leak-kinds=all \
