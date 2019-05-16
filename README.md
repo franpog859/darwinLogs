@@ -57,9 +57,8 @@ If you are Ubuntu (or other Linux distro) user you can run `test.sh` script whic
 ## Plots examples
 
 <p align="center">
-<table>
+<table cellspacing="0" cellpadding="0">
   <tr>
-    <th></th>
     <th scope="col"><img src="https://raw.githubusercontent.com/franpog859/darwinLogs/master/docs/1-attribute-correlation-people-number.png"></th>
     <th scope="col"><img src="https://raw.githubusercontent.com/franpog859/darwinLogs/master/docs/1-attribute-correlation-correlation-dexterity.png"></th>
   </tr>
@@ -69,7 +68,7 @@ If you are Ubuntu (or other Linux distro) user you can run `test.sh` script whic
 We can clearly see that something bad happened around 60-th epoch. Number of people started to decrease drasticly. On the second chart we can observe that it probably was the increasing minimal dexterity needed to survive.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/franpog859/darwinLogs/master/docs/2-delay-correlation-sex-and-couples.png">
+  <img src="https://raw.githubusercontent.com/franpog859/darwinLogs/master/docs/2-delay-correlation-dexterity.png">
 </p>
 
 In the second attribute correlation chart we can observe even more clearly that the change of average attribute is related to the environment. If the need for dexterity decreases, people's dexterity decreases too. They are getting lazy. If it increases, people's dexterity increases too. We can even observe the delay of the change and therefore what causes what. People's attribute changes much later that the environment. It can cause problems as we observed in the first two charts.
