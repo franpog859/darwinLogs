@@ -50,12 +50,18 @@ void Plotter::saveSexNumberDifferenceAndCouplesSexuality(std::vector<Info> *info
     gp << "set terminal png\n";
     gp << "set output '" + *outputPath + "correlation-sex-and-couples.png'\n";
 
-    std::vector<std::pair<int, int>> xy_sex_and_couples_difference;
+    std::vector<std::pair<double, double>> xy_sex_and_couples_difference;
     for(int i = 1; i < info->size(); i++) {
-        int sex_number_difference = info->at(i).maleAdultNumber - info->at(i).femaleAdultNumber; 
+        double adultsNumber = (double) (info->at(i).maleAdultNumber + info->at(i).femaleAdultNumber);
+        if (adultsNumber < 2) {
+            continue;
+        }
+        double sex_number_difference = (double) (info->at(i).maleAdultNumber - info->at(i).femaleAdultNumber); 
         sex_number_difference = (sex_number_difference >= 0) ? sex_number_difference : sex_number_difference * -1;
+        sex_number_difference = sex_number_difference / adultsNumber;
 
-        int couple_sexuality_difference = info->at(i).homoCouplesNumber - info->at(i).straightCouplesNumber;
+        double couple_sexuality_difference = (double) info->at(i).homoCouplesNumber / (double) (info->at(i).straightCouplesNumber + info->at(i).homoCouplesNumber);
+        //couple_sexuality_difference = couple_sexuality_difference / (adultsNumber / 2);
 
         xy_sex_and_couples_difference.push_back(std::make_pair(couple_sexuality_difference, sex_number_difference));
     }

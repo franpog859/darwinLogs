@@ -74,10 +74,15 @@ We can clearly see that something bad happened around 60-th epoch. Number of peo
 In the second attribute correlation chart we can observe even more clearly that the change of average attribute is related to the environment. If the need for dexterity decreases, people's dexterity decreases too. They are getting lazy. If it increases, people's dexterity increases too. We can even observe the delay of the change and therefore what causes what. People's attribute changes much later that the environment. It can cause problems as we observed in the first two charts.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/franpog859/darwinLogs/master/docs/3-not-linear-correlation-sex-and-couples.png">
+<table cellspacing="0" cellpadding="0">
+  <tr>
+    <th scope="col"><img src="https://raw.githubusercontent.com/franpog859/darwinLogs/master/docs/3-not-linear-correlation-sex-and-couples.png"></th>
+    <th scope="col"><img src="https://raw.githubusercontent.com/franpog859/darwinLogs/master/docs/3-not-linear-correlation-sex-and-couples-explanation.png"></th>
+  </tr>
+</table>
 </p>
 
-I tried to show the linear relation with sex difference and difference of number of homosexual and heterosexual couples. If the sex difference increases number of homosexual couples should increase too. I cannot observe it in the chart tho. If you can see any mistake I did, tell me!
+I tried to show the linear relation with sex difference and difference of number of homosexual and heterosexual couples. If the sex difference increases number of homosexual couples should increase too. Dataset is so small that you cannot observe it with naked eye! I generated the characteristic and added the results to see that is's in fact true.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/franpog859/darwinLogs/master/docs/4-elders-boom-correlation-elders-dexterity.png">

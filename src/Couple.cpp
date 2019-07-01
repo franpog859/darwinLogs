@@ -29,10 +29,7 @@ std::vector<Child> Couple::begetChildren(Environment * environment) {
 }
 
 bool Couple::isStraight() {
-	return (
-		(first->getIsMale() && !second->getIsMale()) ||
-		(!first->getIsMale() && second->getIsMale())
-	);
+	return first->getIsMale() != second->getIsMale();
 }
 
 Statistics Couple::getChildStatistics() {
