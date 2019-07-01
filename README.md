@@ -82,7 +82,7 @@ In the second attribute correlation chart we can observe even more clearly that 
 </table>
 </p>
 
-I tried to show the linear relation with sex difference and difference of number of homosexual and heterosexual couples. If the sex difference increases number of homosexual couples should increase too. Dataset is so small that you cannot observe it with naked eye! I generated the characteristic and added the results to see that is's in fact true.
+I tried to show the linear relation with sex difference and difference of number of homosexual and heterosexual couples. If the sex difference increases number of homosexual couples should increase too. Dataset is so small that you cannot observe it with naked eye! I generated the characteristic and added the results to see that it's in fact true.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/franpog859/darwinLogs/master/docs/4-elders-boom-correlation-elders-dexterity.png">
